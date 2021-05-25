@@ -1,6 +1,7 @@
+require_relative '../board'
 
 class Knight
-    def initialize(board, usermove)
+    def initialize(board, attributes)
 
         @symbol = " \u265E "
         @captures = []

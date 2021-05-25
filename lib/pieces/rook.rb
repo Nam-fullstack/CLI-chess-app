@@ -1,6 +1,7 @@
+require_relative '../board'
 
 class Rook
-    def initialize(board, usermove)
+    def initialize(board, attributes)
 
         @symbol = " \u265C "
     end

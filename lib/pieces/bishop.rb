@@ -1,9 +1,9 @@
-
+require_relative '../board'
 
 # Move mechanics for bishop
 class Bishop
-    def initialize(board, usermove)
-        
+    def initialize(board, attributes)
+
         @symbol = " \u265D "
     end
 

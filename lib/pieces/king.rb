@@ -1,6 +1,7 @@
+require_relative '../board'
 
 class Queen
-    def iniatilize(board, usermove)
+    def iniatilize(board, attributes)
 
         @symbol = " \u265A "
     end
