@@ -2,7 +2,7 @@ require_relative '../board'
 
 class Pawn < Piece
     def iniatilize(board, attributes)
-
+        super(board, attributes)
         @symbol = " \u265F "
         @moved = fales
     end

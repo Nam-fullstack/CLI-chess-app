@@ -1,8 +1,8 @@
-require_relative '../board'
+require_relative 'piece'
 
-class King
+class King < Piece
     def iniatilize(board, attributes)
-
+        super(board, attributes)
         @symbol = " \u265A "
     end
 

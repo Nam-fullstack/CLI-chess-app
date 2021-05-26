@@ -1,3 +1,4 @@
+require 'observer'
 require_relative 'printables'
 
 class Board
