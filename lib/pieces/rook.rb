@@ -1,6 +1,6 @@
 require_relative '../board'
 
-class Rook
+class Rook < Piece
     def initialize(board, attributes)
 
         @symbol = " \u265C "

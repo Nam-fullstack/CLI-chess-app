@@ -1,6 +1,6 @@
 require_relative '../board'
 
-class Queen
+class Queen < Piece
     def iniatilize(board, attributes)
 
         @symbol = " \u265B "

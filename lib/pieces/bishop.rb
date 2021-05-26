@@ -1,7 +1,7 @@
 require_relative '../board'
 
 # Move mechanics for bishop
-class Bishop
+class Bishop < Piece
     def initialize(board, attributes)
 
         @symbol = " \u265D "
