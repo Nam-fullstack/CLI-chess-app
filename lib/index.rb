@@ -1,4 +1,5 @@
-require "tty-prompt"
+require 'tty-prompt'
+require_relative 'board'
 
 @prompt = TTY::Prompt.new
 
