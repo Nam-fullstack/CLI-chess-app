@@ -26,12 +26,40 @@ class Board
     #     populate_black_pawns
     # end
 
-    def initial_positioning
-        initial_row(:white, 0)
-        initial_row(:black, 7)
-        initial_pawn_row(:white, 1)
-        initial_pawn_row(:black, 6)
-        @white_king = @data[0][4]
-        @black_king = @data[7][4]
+    def to_s
+        print_chess_board
     end
+
+    private
+
+    def initial_pawn_row(color, number)
+        8.times do |index|
+            @data[number][index] = Pawn.new(self, { color: color, location: [number, index] })
+        end
+    end
+
+    def initial_row(color, number)
+        @data[number] = [
+            Rook.new(self, { color: color, location: [number, 0] }),
+            Knight.new(self, { color: color, location: [number, 1] }),
+            Bishop.new(self, { color: color, location: [number, 2] }),
+            Queen.new(self, { color: color, location: [number, 3] }),
+            King.new(self, { color: color, location: [number, 4] }),
+            Bishop.new(self, { color: color, location: [number, 5] }),
+            Knight.new(self, { color: color, location: [number, 6] }),
+            Rook.new(self, { color: color, location: [number, 7] })
+        ]
+    end
+
+# *****************************************************************************************************
+# MIGHT NEED TO CHANGE THIS LATER IF POSITIONS AREN'T CORRECT
+def initial_positioning
+    initial_row(:white, 0)
+    initial_row(:black, 7)
+    initial_pawn_row(:white, 1)
+    initial_pawn_row(:black, 6)
+    @white_king = @data[0][4]
+    @black_king = @data[7][4]
+end
+# *****************************************************************************************************
 end
