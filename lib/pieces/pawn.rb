@@ -14,7 +14,7 @@ class Pawn < Piece
     def update_location(row, column)
         update_en_passant(row)
         @location = [row, column]
-        @moves = true
+        @moved = true
     end
 
     def find_possible_moves(board)
@@ -45,10 +45,21 @@ class Pawn < Piece
     private
 
     def single_advance(board)
-        [0, 1]
+        move = [@location[0] + rank_direction, @location[1]]
+        return move unless board.data[move[0]][move[1]]
     end
 
     def double_advance(board)
-        [0, 2]
+        double_rank = @location[0] + (rank_direction * 2)
+        bonus = [double_rank, @location[1]]
+        return bonus unless invalid_bonus_move?(board, bonus)
     end
+
+    def invalid_bonus_move?(board, bonus)
+        first_move = single_move(board)
+        return true unless first_move
+        @move || board.data[bonus[0]][bonus[1]]
+    end
+
+    
 end
