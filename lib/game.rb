@@ -1,6 +1,7 @@
 
 
 require_relative 'game_prompts'
+require_relative 'board'
 
 
 class Game
@@ -33,6 +34,7 @@ class Game
     end
 
     include GamePrompts
+# 
 
     def initialize(number, board = Board.new, current_turn = :white)
         @player_count = number
@@ -42,7 +44,7 @@ class Game
 
     def setup_board
         @board.update_mode if @player_count == 1
-        @board.initial_positioning
+        @board.initial_placement
     end
 
     def play
@@ -89,7 +91,7 @@ class Game
         validate_piece_coordinates(coordinates)
         @board.update_active_piece(coordinates)
         validate_active_piece
-    rescue StandardError => each
+    rescue StandardError => e
         puts e.message
         retry
     end
@@ -99,7 +101,7 @@ class Game
         coordinates = translate_notation(input)
         validate_move(coordinates)
         coordinates
-    rescue StandardError => each
+    rescue StandardError => e
         puts e.message
         retry
     end
