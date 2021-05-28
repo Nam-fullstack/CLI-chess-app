@@ -15,17 +15,6 @@ class Board
         @mode = parameters[:mode]
     end
 
-    # def populate_pieces
-    #     populate_rooks
-    #     populate_knights
-    #     populate_bishops
-    #     populate_queens
-    #     populate_kings
-    #     # castling_check
-    #     populate_white_pawns
-    #     populate_black_pawns
-    # end
-
     def to_s
         print_chess_board
     end
@@ -51,15 +40,12 @@ class Board
         ]
     end
 
-# *****************************************************************************************************
-# MIGHT NEED TO CHANGE THIS LATER IF POSITIONS AREN'T CORRECT
-def initial_positioning
-    initial_row(:white, 0)
-    initial_row(:black, 7)
-    initial_pawn_row(:white, 1)
-    initial_pawn_row(:black, 6)
-    @white_king = @data[0][4]
-    @black_king = @data[7][4]
-end
-# *****************************************************************************************************
+    def initial_positioning
+        initial_row(:white, 7)
+        initial_row(:black, 0)
+        initial_pawn_row(:white, 6)
+        initial_pawn_row(:black, 1)
+        @white_king = @data[7][4]
+        @black_king = @data[0][4]
+    end
 end
