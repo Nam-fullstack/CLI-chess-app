@@ -13,11 +13,11 @@ module Printables
         @data.each_with_index do |row, index|
             print "#{8 - index} ".colorize(:cyan)
             print_row(row, index)
-            print "#{8 - index} ".colorize(:cyan)
-            puts
+            print "#{8 - index} \n".colorize(:cyan)
         end
     end
 
+    # creates each row to be printed with an alternating color
     def print_row(row, row_index)
         row.each_with_index do |box, index|
             background_color = select_background(row_index, index)
@@ -25,17 +25,23 @@ module Printables
         end
     end
 
+    # returns background color based on specific conditions:
+    # 105 = magenta background (active piece to move)
+    # 101 = red background (possible captures)
+    #  43 = yellow background (previous piece that moved)
+    #  44 = blue background (even)
+    # 100 = gray background (odd)
     def select_background(row_index, column_index)
         if @active_piece&.location == [row_index, column_index]
-            106
+            105
         elsif capture_background?(row_index, column_index)
             101
         elsif @previous_piece&.location == [row_index, column_index]
-            45
+            43
         elsif (row_index + column_index).even?
-            47
-        else
             46
+        else
+            100
         end
     end
 
@@ -45,7 +51,7 @@ module Printables
 
     # sets the font colours for each square based on specific conditions
     # 97 = white (chess pieces)
-    # 91 = light red (possible moves circle \u25CF)  might change to square depending on how it looks
+    # 91 = light red (possible moves circle \u25CF)  might change to solid fill square depending on how it looks
     # 30 = black (chess pieces)
     def print_box(row_index, column_index, box, background)
         if box

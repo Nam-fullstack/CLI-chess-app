@@ -3,6 +3,7 @@ require_relative 'printables'
 
 class Board
     include Printables
+    include Observable
     attr_reader :mode, :white_king, :black_king
     attr_accessor :data, :active_piece, :previous_piece 
 
@@ -14,12 +15,6 @@ class Board
         @black_king = parameters[:black_king]
         @mode = parameters[:mode]
     end
-
-    def to_s
-        print_chess_board
-    end
-
-    private
 
     def initial_pawn_row(color, number)
         8.times do |index|
@@ -40,12 +35,46 @@ class Board
         ]
     end
 
-    def initial_positioning
+    def initial_placement
         initial_row(:white, 7)
         initial_row(:black, 0)
         initial_pawn_row(:white, 6)
         initial_pawn_row(:black, 1)
         @white_king = @data[7][4]
         @black_king = @data[0][4]
+        update_all_moves_captures
+    end
+
+    def update_active_piece(coordinates)
+        @active_piece = data[coordinates[:row]][coordinates[:column]]
+    end
+
+    def active_piece_moveable?
+        @active_piece.moves.size >= 1 || @active_piece.captures.size >= 1
+    end
+
+    # checks to see if piece has any valid moves or captures
+    def valid_piece_movement?(coordinates)
+        row = coordiantes[:row]
+        column = coordinates[:column]
+        @active_piece.moves.any?([row, column]) || @active_piece.captures.any?([row, column])
+    end
+
+    def valid_piece?(coordinates, color)
+        piece = @data[coordinates[:row]][coordinates[:column]]
+        piece&.color == color
+    end
+
+    def update(coordinates)
+        type = movement_type(coordinates)
+        movement = Movement.new(type).build
+        movement.update_pieces(self, coordinates)
+        reset_board_values
+    end
+
+    
+    # prints the board using Printables module
+    def to_s
+        print_chess_board
     end
 end

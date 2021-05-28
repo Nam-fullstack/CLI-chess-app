@@ -107,7 +107,7 @@ class Game
     end
 
     def user_select_piece
-        
+        ### might need to check if piece is MOVEABLE and CHECK TO SEE IF KING IS IN CHECK
         input = user_input(user_piece_selection)
         validate_piece_input(input)
         resign_game if input.upcase == "Q"
@@ -156,7 +156,7 @@ class Game
         raise PieceError unless @board.active_piece_moveable?
     end
 
-    def translate_notation(input)
+    def translate_coordinates(input)
         translator ||= NotationConverter.new
         translator.translate_notation(input)
     end
