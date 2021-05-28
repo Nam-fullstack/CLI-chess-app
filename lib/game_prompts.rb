@@ -32,7 +32,7 @@ module GamePrompts
         Enter the coordinates of the piece that you want to move.
 
         \e[45mStep 2:\e[0m
-        Enter the coordinates of any legal move \e[102m   \e[0m or capture \e[101m \u265F \e[0m.
+        Enter the coordinates of any legal move \e[102m  \e[0m or capture \e[101m \u265F \e[0m.
 
         To START, enter one of the following to play:
 

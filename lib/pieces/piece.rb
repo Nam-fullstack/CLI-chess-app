@@ -19,7 +19,6 @@ class Piece
         @move = true
     end
 
-
     def create_moves(data, rank_change, file_change)
         rank = @location[0] + rank_change
         file = @location[1] + file_change
@@ -51,6 +50,7 @@ class Piece
         rank.between?(0, 7) && file.between?(0, 7)
     end
 
+    # checks if piece is opposing color 
     def opposing_piece?(rank, file, data)
         return unless valid_location?(rank, file)
 

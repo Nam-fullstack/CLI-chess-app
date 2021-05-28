@@ -16,31 +16,35 @@ require_relative 'pieces/pawn'
 
 extend GamePrompts
 
-@prompt = TTY::Prompt.new
 
 
-# Not working....!!!!
-# def menu_option
-#     user_input = @prompt.select("Play game option: ", ["Single Player", "Two Player", "Load Game", "Quit"])
-# end
+
+def menu_option
+    @prompt = TTY::Prompt.new
+    @user_input = @prompt.select("Play game option: ", ["Single Player", "Two Player", "Load Game", "How to Play", "Quit"])
+    puts @user_input
+end
 
 def play_game(input)
-    if input == '1'
+    if input == 'Single Player'
         single_player = Game.new(1)
         single_player.setup_board
         single_player.play_game
-    elsif input == '2'
+    elsif input == 'Two Player'
         two_payer = Game.new(2)
         two_payer.setup_board
         two_payer.play
-    elsif input == '3'
+    elsif input == 'Load Game'
         load_game.play
     end
+
 end
 
-loop do
-    puts game_mode_choices
-    mode = select_game_mode
-    play_game(mode)
-    break if repeat_game == :Quit
-end
+menu_option
+play_game(@user_input)
+# loop do
+#     puts game_mode_choices
+#     mode = select_game_mode
+#     play_game(@user_input)
+#     break if repeat_game == :Quit
+# end
