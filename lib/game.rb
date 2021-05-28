@@ -48,7 +48,7 @@ class Game
     def play
         @board.to_s
         player_turn until @board.game_over? || @player_count.zero?
-        exit_message
+        game_end_message
     end
 
     def player_turn

@@ -52,4 +52,13 @@ module GamePrompts
         HEREDOC
     end
 
+    def game_end_message
+        return unless @player_count.positive?
+
+        if @board.king_in_check?(@current_turn)
+            puts "\e[106mCHECKMATE! #{previous_color.upcase} WINS!!\e[0m"
+        else
+            puts "\e[106mSTALEMATE! Game is a draw."
+        end
+    end
 end
