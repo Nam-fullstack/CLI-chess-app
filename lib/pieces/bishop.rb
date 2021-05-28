@@ -1,5 +1,6 @@
-require_relative 'piece'
+# frozen_string_literal: true
 
+require_relative 'piece'
 
 # Move mechanics for bishop
 class Bishop < Piece
