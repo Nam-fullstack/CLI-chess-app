@@ -61,5 +61,10 @@ class Pawn < Piece
         @move || board.data[bonus[0]][bonus[1]]
     end
 
-    
+    # defines capture mechanics for pawns
+    def basic_capture (board, file)
+        rank = @location[0] + rank_direction
+        return [rank, file] if opposing_piece?(rank, file, board.data)
+    end
+
 end
