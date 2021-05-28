@@ -19,6 +19,11 @@ class Piece
         @moved = true
     end
 
+    def update(board)
+        current_captures(board)
+        current_moves(board)
+    end
+
     def current_moves(board)
         possible_moves = find_possible_moves(board)
         @moves = remove_illegal_moves(board, possible_moves)
@@ -30,15 +35,15 @@ class Piece
     end
 
     def find_possible_moves(board)
-        moves = move_mechanics.inject([]) do |memory, move|
-            memory << create_moves(board.data, move[0], move[1])
+        moves = move_mechanics.inject([]) do |memo, move|
+            memo << create_moves(board.data, move[0], move[1])
         end
         moves.compact.flatten(1)
     end
 
     def find_possible_captures(board)
-        captures = move_mechanics.inject([]) do |memory, move|
-            memory << create_captures(board.data, move[0], move[1])
+        captures = move_mechanics.inject([]) do |memo, move|
+            memo << create_captures(board.data, move[0], move[1])
         end
         captures.compact
     end
@@ -50,11 +55,6 @@ class Piece
         validator.verify_possible_moves
     end
 
-    def update(board)
-        current_captures(board)
-        current_moves(board)
-    end
-    
     private
     
     # adds moves until it reaches a piece or still within the board, based on each piece's move mechanics

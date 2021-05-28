@@ -116,7 +116,7 @@ class Board
     end     # close initial_row
 
     def update_all_moves_captures
-        pieces = @data.flatten[1].compact
+        pieces = @data.flatten(1).compact
         pieces.each { |piece| piece.update(self) }
     end
 
