@@ -89,4 +89,13 @@ module GamePrompts
         HEREDOC
     end
 
+    def previous_color
+        @current_turn == :white ? 'Black' : 'White'
+    end
+
+    def resign_game
+        puts "#{@current_turn} RESIGNED! #{previous_color.upcase} WINS!!!".colorize(:green)
+        @player_count = 0     # since player count is less than 1, ends game
+    end
+
 end
