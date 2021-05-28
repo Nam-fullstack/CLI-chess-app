@@ -41,9 +41,6 @@ module GamePrompts
     end
 
     def game_instructions
-
-    
-
         <<~HEREDOC
 
         Each turn will have two steps:
@@ -75,4 +72,21 @@ module GamePrompts
             puts "\e[106mSTALEMATE! Game is a draw."
         end
     end
+
+    def user_piece_selection
+        <<~HEREDOC
+
+        Please enter the coordinates of the piece you wish to move.
+
+        HEREDOC
+    end
+
+    def user_move_selection
+        <<~HEREDOC
+
+        Please enter coordinates for a legal move highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m. 
+
+        HEREDOC
+    end
+
 end
