@@ -52,18 +52,17 @@ class Board
         movement.update_pieces(self, coordinates)
         reset_board_values
     end
-
+######################### HAVEn'T ADDED CASLING AND PAWN PROMOTION FEATURES YET ###########
     def movement_type(coordinates)
-        # if en_passant_capture?(coordinates)
-        #     'EnPassant'
+        if en_passant_capture?(coordinates)
+            'EnPassant'
         # elsif castling?(coordinates)
         #     'Castling'
         # elsif pawn_promotion?(coordinates)
         #     'PawnPromotion'
-        # else
-        #     'Basic'
-        # end
-        return 'Basic'
+        else
+            'Basic'
+        end
     end
 
     def reset_board_values
@@ -71,6 +70,20 @@ class Board
         @active_piece = nil
         changed
         notify_observers(self)
+    end
+
+    def possible_en_passant?
+        @active_piece&.captures&.include?(@previous_piece.location) && enpassant_pawn?
+    end
+
+    # determines if King is IN CHECK by seeing opposing piece color can capture location that matches King's location.
+    def king_in_check?(color)
+        king = color == :white ? @white_king : @black_king
+        pieces = @data.flatten[1].compact
+        pieces.any? do |piece|
+            next unless piece.color != king.color
+            piece.captures.include?(king.location)
+        end
     end
 
     def random_black_piece
@@ -83,11 +96,21 @@ class Board
         { row: location[0], column: location [1] }
     end     # close random_black_piece
 
+    def random_black_move
+        possible_moves = @active_piece.moves + @active_piece.captures
+        location = possible_moves.sample
+        { row: location[0], column: location[1] }
+    end
+
     def update_mode
         @mode = :computer
     end
 
-
+    def game_over?
+        return false unless @previous_piece
+        previous_color = @previous_piece.color == :white ? :black : :white
+        no_legal_moves_captures?(previous_color)
+    end
 
     # prints the board using Printables module
     def to_s
@@ -118,6 +141,10 @@ class Board
     def update_all_moves_captures
         pieces = @data.flatten(1).compact
         pieces.each { |piece| piece.update(self) }
+    end
+
+    def en_passant_capture?(coordinates)
+        @previous_piece&.location == [coordiantes[:row], coordinates[:column]] && en_passant_pawn?
     end
 
     def no_legal_moves_captures?(color)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'tty-prompt'
 
@@ -6,6 +7,7 @@ require_relative 'printables'
 require_relative 'game'
 require_relative 'game_prompts'
 require_relative 'notation_converter'
+require_relative 'move_validator'
 require_relative 'pieces/piece'
 require_relative 'pieces/king'
 require_relative 'pieces/queen'
@@ -16,17 +18,12 @@ require_relative 'pieces/pawn'
 
 extend GamePrompts
 
-
-
-
-
-
 def play_game(input)
     if input == "1"
     # if input == "\e[1mSingle Player\e[0m"
         single_player = Game.new(1)
         single_player.setup_board
-        single_player.play_game
+        single_player.play
     elsif input == "2"
     # elsif input == "\e[1mTwo Player\e[0m"
         two_payer = Game.new(2)
@@ -38,7 +35,6 @@ def play_game(input)
     elsif input == "4"
         game_instructions
     end
-
 end
 
 # loop do

@@ -4,7 +4,7 @@ require_relative '../board'
 
 # move mechanics for pawn
 class Pawn < Piece
-    def iniatilize(board, attributes)
+    def initialize(board, attributes)
         super(board, attributes)
         @symbol = " \u265F "
         @moved = false
@@ -56,7 +56,7 @@ class Pawn < Piece
     end
 
     def invalid_bonus_move?(board, bonus)
-        first_move = single_move(board)
+        first_move = single_advance(board)
         return true unless first_move
         @move || board.data[bonus[0]][bonus[1]]
     end
@@ -74,6 +74,10 @@ class Pawn < Piece
         file_difference = (@location[1] - capture [1]).abs
         return unless column_difference == 1
         return capture if valid_en_passant?(board)
+    end
+
+    def update_en_passant(row)
+        @en_passant = (row - location[0]).abs ==2
     end
         
     # NEED TO CHECK THIS, but think logic should be right, piece that moved previously has to be a pawn that has done a double advance and 

@@ -1,7 +1,8 @@
-
+# frozen_string_literal: true
 
 require_relative 'game_prompts'
 require_relative 'board'
+require_relative 'notation_converter'
 
 
 class Game
@@ -87,7 +88,7 @@ class Game
         input = user_select_piece
         return unless @player_count.positive?
 
-        coordinates = translate_notation(input)
+        coordinates = translate_coordinates(input)
         validate_piece_coordinates(coordinates)
         @board.update_active_piece(coordinates)
         validate_active_piece
@@ -98,7 +99,7 @@ class Game
 
     def select_move_coordinates
         input = user_select_move
-        coordinates = translate_notation(input)
+        coordinates = translate_coordinates(input)
         validate_move(coordinates)
         coordinates
     rescue StandardError => e

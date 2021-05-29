@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 require 'colorize'
 
 module Printables
-
+    private
+    
+    # prints out chess board with file(letter) and rank(number) coordinates
     def print_chess_board
         system 'clear'
-        puts "\n     a   b   c   d   e   f   g   h".colorize(:cyan)
+        puts "\n   a  b  c  d  e  f  g  h".colorize(:cyan)
         print_board
-        puts "     a   b   c   d   e   f   g   h \n".colorize(:cyan)
+        puts "   a  b  c  d  e  f  g  h \n".colorize(:cyan)
     end
 
+    # iterates through each row of the board and adds rank. In chess, the rows
+    # go from 1-8, starting from the bottom. 
     def print_board
         @data.each_with_index do |row, index|
             print "#{8 - index} ".colorize(:cyan)
@@ -50,15 +56,15 @@ module Printables
     end
 
     # sets the font colours for each square based on specific conditions
-    # 97 = white (chess pieces)
-    # 91 = light red (possible moves circle \u25CF)  might change to solid fill square depending on how it looks
-    # 30 = black (chess pieces)
+    #  97 = white (chess pieces)
+    # 102 = green (possible moves)
+    #  30 = black (chess pieces)
     def print_box(row_index, column_index, box, background)
         if box
             text_color = box.color == :white ? 97: 30
             color_box(text_color, background, box.symbol)
         elsif @active_piece&.moves&.any?([row_index, column_index])
-            color_box(91, background, " \u25CF ")
+            color_box(102, background, '   ')
         else
             color_box(30, background, '   ')
         end

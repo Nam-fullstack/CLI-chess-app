@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module GamePrompts
     # def menu_option
@@ -43,7 +44,7 @@ module GamePrompts
     def game_instructions
         <<~HEREDOC
 
-        Each turn will have two steps:
+        Each turn will comprise of two steps:
 
         \e[45mStep 1:\e[0m
         Enter the coordinates of the piece that you want to move.

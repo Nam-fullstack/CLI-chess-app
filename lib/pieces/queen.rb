@@ -4,7 +4,7 @@ require_relative 'piece'
 
 # move mechanics for queen
 class Queen < Piece
-    def iniatilize(board, attributes)
+    def initialize(board, attributes)
         super(board, attributes)
         @symbol = " \u265B "
     end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class NotationConverter
     def initialize
@@ -16,7 +17,7 @@ class NotationConverter
 
     # converts file (a-h) to a number 0-7 using ASCII numbers for characters
     def translate_column(letter)
-        @column = letter.downcase.ord - 48
+        @column = letter.downcase.ord - 97
     end
 
     # converts the rank (8-1) to a number 0-7
