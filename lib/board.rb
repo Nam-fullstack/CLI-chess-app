@@ -1,5 +1,5 @@
-require 'observer'
 require_relative 'printables'
+require 'observer'
 
 class Board
     include Printables
@@ -33,17 +33,17 @@ class Board
     def active_piece_moveable?
         @active_piece.moves.size >= 1 || @active_piece.captures.size >= 1
     end
+    
+    def valid_piece?(coordinates, color)
+        piece = @data[coordinates[:row]][coordinates[:column]]
+        piece&.color == color
+    end
 
     # checks to see if piece has any valid moves or captures
     def valid_piece_movement?(coordinates)
         row = coordinates[:row]
         column = coordinates[:column]
         @active_piece.moves.any?([row, column]) || @active_piece.captures.any?([row, column])
-    end
-
-    def valid_piece?(coordinates, color)
-        piece = @data[coordinates[:row]][coordinates[:column]]
-        piece&.color == color
     end
 
     def update(coordinates)
@@ -79,7 +79,7 @@ class Board
     # determines if King is IN CHECK by seeing opposing piece color can capture location that matches King's location.
     def king_in_check?(color)
         king = color == :white ? @white_king : @black_king
-        pieces = @data.flatten[1].compact
+        pieces = @data.flatten(1).compact
         pieces.any? do |piece|
             next unless piece.color != king.color
             piece.captures.include?(king.location)
@@ -119,22 +119,22 @@ class Board
 
     private
 
-    def initial_pawn_row(color, number)
+    def initial_pawn_row(color, rank)
         8.times do |index|
-            @data[number][index] = Pawn.new(self, { color: color, location: [number, index] })
+            @data[rank][index] = Pawn.new(self, { color: color, location: [rank, index] })
         end
     end
 
-    def initial_row(color, number)
-        @data[number] = [
-            Rook.new(self, { color: color, location: [number, 0] }),
-            Knight.new(self, { color: color, location: [number, 1] }),
-            Bishop.new(self, { color: color, location: [number, 2] }),
-            Queen.new(self, { color: color, location: [number, 3] }),
-            King.new(self, { color: color, location: [number, 4] }),
-            Bishop.new(self, { color: color, location: [number, 5] }),
-            Knight.new(self, { color: color, location: [number, 6] }),
-            Rook.new(self, { color: color, location: [number, 7] })
+    def initial_row(color, rank)
+        @data[rank] = [
+            Rook.new(self, { color: color, location: [rank, 0] }),
+            Knight.new(self, { color: color, location: [rank, 1] }),
+            Bishop.new(self, { color: color, location: [rank, 2] }),
+            Queen.new(self, { color: color, location: [rank, 3] }),
+            King.new(self, { color: color, location: [rank, 4] }),
+            Bishop.new(self, { color: color, location: [rank, 5] }),
+            Knight.new(self, { color: color, location: [rank, 6] }),
+            Rook.new(self, { color: color, location: [rank, 7] })
         ]
     end     # close initial_row
 
