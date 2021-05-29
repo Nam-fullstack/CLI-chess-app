@@ -6,7 +6,7 @@ require_relative 'piece'
 class Knight < Piece
     def initialize(board, attributes)
         super(board, attributes)
-        @symbol = " \u265E "
+        @symbol = " \u2658 "
         @captures = []
     end
 

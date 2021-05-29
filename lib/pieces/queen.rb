@@ -6,7 +6,7 @@ require_relative 'piece'
 class Queen < Piece
     def initialize(board, attributes)
         super(board, attributes)
-        @symbol = " \u265B "
+        @symbol = " \u2655 "
     end
 
     private

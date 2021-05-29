@@ -33,10 +33,10 @@ module Printables
 
     # returns background color based on specific conditions:
     # 105 = magenta background (active piece to move)
-    # 101 = red background (possible captures)
-    #  43 = yellow background (previous piece that moved)
-    #  44 = blue background (even)
-    # 100 = gray background (odd)
+    # 101 = red background     (possible captures)
+    #  43 = yellow background  (previous piece that moved)
+    #  44 = blue background    (even)
+    # 100 = gray background    (odd)
     def select_background(row_index, column_index)
         if @active_piece&.location == [row_index, column_index]
             105
@@ -61,7 +61,7 @@ module Printables
     #  30 = black (chess pieces)
     def print_box(row_index, column_index, box, background)
         if box
-            text_color = box.color == :white ? 97: 30
+            text_color = box.color == :white ? 107 : 30
             color_box(text_color, background, box.symbol)
         elsif @active_piece&.moves&.any?([row_index, column_index])
             color_box(102, background, '   ')

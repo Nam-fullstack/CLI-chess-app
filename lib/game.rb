@@ -117,6 +117,7 @@ class Game
     end
 
     def user_select_move
+        puts en_passant_warning if @board.possible_en_passant?
         
         input = user_input(user_move_selection)
         validate_move_input(input)
@@ -157,6 +158,7 @@ class Game
         raise PieceError unless @board.active_piece_moveable?
     end
 
+    # translator translates chess notation into hash of coordinates
     def translate_coordinates(input)
         translator ||= NotationConverter.new
         translator.translate_notation(input)

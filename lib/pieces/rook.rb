@@ -6,7 +6,7 @@ require_relative 'piece'
 class Rook < Piece
     def initialize(board, attributes)
         super(board, attributes)
-        @symbol = " \u265C "
+        @symbol = " \u2656 "
     end
 
     private

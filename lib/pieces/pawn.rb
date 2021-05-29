@@ -6,7 +6,7 @@ require_relative '../board'
 class Pawn < Piece
     def initialize(board, attributes)
         super(board, attributes)
-        @symbol = " \u265F "
+        @symbol = " \u2659 "
         @moved = false
         @en_passant = false
     end
