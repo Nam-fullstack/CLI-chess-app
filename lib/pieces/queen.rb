@@ -6,9 +6,12 @@ require_relative 'piece'
 class Queen < Piece
     def initialize(board, attributes)
         super(board, attributes)
-        @symbol = " \u2655 "
+        @symbol = color == :white ? " \u2655 " : " \u265B "
     end
 
+    # def symbol_color
+    #     color == :white ? " \u2655 " : " \u265B "
+    # end
     private
 
     def move_mechanics

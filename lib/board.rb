@@ -36,7 +36,7 @@ class Board
 
     # checks to see if piece has any valid moves or captures
     def valid_piece_movement?(coordinates)
-        row = coordiantes[:row]
+        row = coordinates[:row]
         column = coordinates[:column]
         @active_piece.moves.any?([row, column]) || @active_piece.captures.any?([row, column])
     end
@@ -48,11 +48,11 @@ class Board
 
     def update(coordinates)
         type = movement_type(coordinates)
-        movement = Movement.new(type).build
+        movement = MovementFactory.new(type).build
         movement.update_pieces(self, coordinates)
         reset_board_values
     end
-######################### HAVEn'T ADDED CASLING AND PAWN PROMOTION FEATURES YET ###########
+######################### HAVEn'T ADDED CASTLING AND PAWN PROMOTION FEATURES YET ###########
     def movement_type(coordinates)
         if en_passant_capture?(coordinates)
             'EnPassant'
@@ -73,7 +73,7 @@ class Board
     end
 
     def possible_en_passant?
-        @active_piece&.captures&.include?(@previous_piece.location) && enpassant_pawn?
+        @active_piece&.captures&.include?(@previous_piece&.location) && enpassant_pawn?
     end
 
     # determines if King is IN CHECK by seeing opposing piece color can capture location that matches King's location.
@@ -144,7 +144,7 @@ class Board
     end
 
     def en_passant_capture?(coordinates)
-        @previous_piece&.location == [coordiantes[:row], coordinates[:column]] && en_passant_pawn?
+        @previous_piece&.location == [coordinates[:row], coordinates[:column]] && en_passant_pawn?
     end
 
     def no_legal_moves_captures?(color)

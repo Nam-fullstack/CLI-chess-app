@@ -17,9 +17,9 @@ module Printables
     # go from 1-8, starting from the bottom. 
     def print_board
         @data.each_with_index do |row, index|
-            print "#{8 - index} ".colorize(:cyan)
+            print " #{8 - index} ".colorize(:cyan)
             print_row(row, index)
-            print "#{8 - index} \n".colorize(:cyan)
+            print " #{8 - index} \n".colorize(:cyan)
         end
     end
 

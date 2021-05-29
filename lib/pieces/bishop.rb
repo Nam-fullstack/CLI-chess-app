@@ -6,7 +6,7 @@ require_relative 'piece'
 class Bishop < Piece
     def initialize(board, attributes)
         super(board, attributes)
-        @symbol = " \u2657 "
+        @symbol = color == :white ? " \u2657 " : " \u265D "
     end
 
     private
