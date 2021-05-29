@@ -15,7 +15,7 @@ class BasicMovement
 
     def update_pieces(board, coordinates)
         @board = board
-        @row = coordiantes[:row]
+        @row = coordinates[:row]
         @column = coordinates[:column]
         update_basic_moves
     end

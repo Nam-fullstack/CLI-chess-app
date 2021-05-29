@@ -8,9 +8,9 @@ module Printables
     # prints out chess board with file(letter) and rank(number) coordinates
     def print_chess_board
         system 'clear'
-        puts "\n   a  b  c  d  e  f  g  h".colorize(:cyan)
+        puts "\n    a  b  c  d  e  f  g  h".colorize(:cyan)
         print_board
-        puts "   a  b  c  d  e  f  g  h \n".colorize(:cyan)
+        puts "    a  b  c  d  e  f  g  h \n".colorize(:cyan)
     end
 
     # iterates through each row of the board and adds rank. In chess, the rows
@@ -34,8 +34,8 @@ module Printables
     # returns background color based on specific conditions:
     # 105 = magenta background (active piece to move)
     # 101 = red background     (possible captures)
-    #  43 = yellow background  (previous piece that moved)
-    #  44 = blue background    (even)
+    # 102 = green background   (previous piece that moved)
+    #  44 = cyan background    (even)
     # 100 = gray background    (odd)
     def select_background(row_index, column_index)
         if @active_piece&.location == [row_index, column_index]
@@ -43,7 +43,7 @@ module Printables
         elsif capture_background?(row_index, column_index)
             101
         elsif @previous_piece&.location == [row_index, column_index]
-            43
+            102
         elsif (row_index + column_index).even?
             46
         else
@@ -64,7 +64,7 @@ module Printables
             text_color = box.color == :white ? 107 : 30
             color_box(text_color, background, box.symbol)
         elsif @active_piece&.moves&.any?([row_index, column_index])
-            color_box(102, background, '   ')
+            color_box(102, background, "\e[102m   \e[0m")
         else
             color_box(30, background, '   ')
         end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative '../board'
+require_relative 'piece'
 
 # move mechanics for pawn
 class Pawn < Piece
     def initialize(board, attributes)
         super(board, attributes)
-        @symbol = color == :white ? " \u2659 " : " \u265F "
+        @symbol = " \u265F "
         @moved = false
         @en_passant = false
     end
@@ -39,7 +39,7 @@ class Pawn < Piece
     # determines if pawn is in the right rank to capture en passant
     def en_passant_rank?
         rank = location[0]
-        (rank == 4 && color == :black) || (rank ==3 && color == :white)
+        (rank == 4 && color == :black) || (rank == 3 && color == :white)
     end
 
     private
@@ -71,7 +71,7 @@ class Pawn < Piece
     def en_passant_capture(board)
         capture = board.previous_piece&.location
         return unless capture
-        file_difference = (@location[1] - capture [1]).abs
+        column_difference = (@location[1] - capture [1]).abs
         return unless column_difference == 1
         return capture if valid_en_passant?(board)
     end
@@ -95,7 +95,7 @@ class Pawn < Piece
         pawn_location = board.previous_piece.location
         en_passant_move = [pawn_location[0], pawn_location[1] + rank_direction]
         temp_board = remove_captured_en_passant_pawn(board, pawn_location)
-        legal_capture = remove_ilegal_moves(temp_board, en_passant_move)
+        legal_capture = remove_illegal_moves(temp_board, en_passant_move)
         legal_capture.size.positive?
     end
 

@@ -15,6 +15,11 @@ require_relative 'pieces/rook'
 require_relative 'pieces/knight'
 require_relative 'pieces/bishop'
 require_relative 'pieces/pawn'
+require_relative 'movement/movement_factory'
+require_relative 'movement/basic_movement'
+require_relative 'movement/en_passant_movement'
+require_relative 'movement/castling_movement'
+require_relative 'movement/promotion_movement'
 
 extend GamePrompts
 
