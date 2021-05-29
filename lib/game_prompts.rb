@@ -9,16 +9,16 @@ module GamePrompts
 
     def select_game_mode
         user_mode_select = gets.strip
-        return user_mode_select if user_mode_select.match?(/^[1234]$/)   # will only return if input matches defined numbers in []
+        return user_mode_select if user_mode_select.match?(/^[12345]$/)   # will only return if input matches defined numbers in []
         
-        puts "Input error! Please enter 1, 2, 3 or 4."
+        puts "Input error! Please select from one of the menu options: 1, 2, 3, 4 or 5."
         select_game_mode
     end
     
     def repeat_game
         puts repeat_game_choices
         input = gets.strip
-        choice = input.upcase == 'Q' ? :quit : :repeat
+        choice = input.upcase == 'Q' ? exit_program : :repeat
         return choice if input.match?(/^[QP]$/i)
 
         puts "Input error! Please enter Q or P."
@@ -37,29 +37,34 @@ module GamePrompts
             \e[96m(2)\e[0m to play a \e[93mNew 2-Player\e[0m game
             \e[96m(3)\e[0m to play a \e[93mSaved\e[0m game
             \e[96m(4)\e[0m to view \e[93mHow To Play\e[0m
+            \e[96m(5)\e[0m to \e[93mExit Program\e[0m
 
         HEREDOC
     end
 
-    def game_instructions
-        <<~HEREDOC
+    # \e[45mStep 1:\e[0m
+    # Select the coordinates of the piece that you want to move.
 
-        Each turn will comprise of two steps:
+    # \e[45mStep 2:\e[0m
+    # Enter coordinates of a legal move highlighted in \e[102m  \e[0m or capture \e[101m \u265F \e[0m.
 
-        \e[45mStep 1:\e[0m
-        Enter the coordinates of the piece that you want to move.
+    def how_to_play
+        system 'clear'
+        puts "HOW TO PLAY \n\n".colorize(:yellow)
+        puts "Player's turn will comprise of 2 steps. \n".colorize(:cyan)
+        puts "STEP 1: ".colorize(:magenta) + "Select the coordinates of piece you wish to move. eg. d2 \n".colorize(:cyan)
+        puts "STEP 2: ".colorize(:magenta) + "Enter coordinates of valid move (highlighted in green) or capture (red). eg. d4 \n\n".colorize(:cyan)
+         "To go back to the Main Menu, press \e[4mM\e[0m"
 
-        \e[45mStep 2:\e[0m
-        Enter the coordinates of a legal move \e[102m  \e[0m or capture \e[101m \u265F \e[0m.
+        sleep(5)
 
-        HEREDOC
     end
 
     def repeat_game_choices
         <<~HEREDOC
         
-            Would you like to quit game or play again?
-            \e[91m[Q]\e[0m to Quit or \e[96m[P]\e[0m to Play Again
+            Would you like to start a New Game or Quit Game?
+            \e[96m[P]\e[0m to Play A New Game or \e[91m[Q]\e[0m to Quit
             
         HEREDOC
     end
@@ -82,7 +87,7 @@ module GamePrompts
         HEREDOC
     end
 
-    
+
 
     def user_move_selection
         <<~HEREDOC
@@ -99,6 +104,14 @@ module GamePrompts
     def resign_game
         puts "#{@current_turn} RESIGNED! #{previous_color.upcase} WINS!!!".colorize(:green)
         @player_count = 0     # since player count is less than 1, ends game
+    end
+
+    def exit_program
+        sleep(1)
+        system 'clear'
+        puts "Thank you for playing CLI Chess!"
+        sleep(2)
+        exit
     end
 
 end

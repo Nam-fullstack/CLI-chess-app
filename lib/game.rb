@@ -59,6 +59,7 @@ class Game
             puts "Black to move:".upcase
             computer_player_turn
         else
+            puts "White to move:".upcase
             human_player_turn
         end
         return unless @player_count.positive?
@@ -108,7 +109,6 @@ class Game
     end
 
     def user_select_piece
-        ### might need to check if piece is MOVEABLE and CHECK TO SEE IF KING IS IN CHECK
         input = user_input(user_piece_selection)
         validate_piece_input(input)
         resign_game if input.upcase == "Q"
@@ -118,7 +118,7 @@ class Game
 
     def user_select_move
         puts en_passant_warning if @board.possible_en_passant?
-        
+
         input = user_input(user_move_selection)
         validate_move_input(input)
         resign_game if input.upcase == "Q"

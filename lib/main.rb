@@ -24,22 +24,42 @@ require_relative 'movement/promotion_movement'
 extend GamePrompts
 
 def play_game(input)
-    if input == "1"
-    # if input == "\e[1mSingle Player\e[0m"
+    case(input.to_i)
+    when 1
         single_player = Game.new(1)
         single_player.setup_board
         single_player.play
-    elsif input == "2"
-    # elsif input == "\e[1mTwo Player\e[0m"
+    when 2
         two_payer = Game.new(2)
         two_payer.setup_board
         two_payer.play
-    elsif input == "3"
-    # elsif input == "\e[1mLoad Game\e[0m"
+    when 3
         load_game.play
-    elsif input == "4"
-        game_instructions
+    when 4
+        how_to_play
+    when 5
+        exit_program
     end
+
+
+    # if input == "1"
+    # # if input == "\e[1mSingle Player\e[0m"
+    #     single_player = Game.new(1)
+    #     single_player.setup_board
+    #     single_player.play
+    # elsif input == "2"
+    # # elsif input == "\e[1mTwo Player\e[0m"
+    #     two_payer = Game.new(2)
+    #     two_payer.setup_board
+    #     two_payer.play
+    # elsif input == "3"
+    # # elsif input == "\e[1mLoad Game\e[0m"
+    #     load_game.play
+    # elsif input == "4"
+    #     how_to_play
+    # elsif input == "5"
+    #     exit
+    # end
 end
 
 # loop do

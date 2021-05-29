@@ -1,5 +1,6 @@
 
 require_relative '../board'
+require_relative '../move_validator'
 
 class Piece
     attr_reader :color, :location, :moves, :moved, :captures, :symbol

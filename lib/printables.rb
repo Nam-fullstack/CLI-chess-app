@@ -64,7 +64,6 @@ module Printables
 
     # sets the font colours for each square based on specific conditions
     # 107 = white (chess pieces)
-    # 102 = green (possible moves)
     #  30 = black (chess pieces)
     def print_box(row_index, column_index, box, background)
         if box
