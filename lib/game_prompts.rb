@@ -82,6 +82,8 @@ module GamePrompts
         HEREDOC
     end
 
+    
+
     def user_move_selection
         <<~HEREDOC
 
