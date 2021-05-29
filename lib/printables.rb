@@ -35,7 +35,7 @@ module Printables
     # 105 = magenta background (active piece to move)
     # 101 = red background     (possible captures)
     # 102 = green background   (possible moves)
-    # 103 = yellow background  (previous piece that moved)
+    #  43 = yellow background  (previous piece that moved)
     #  44 = cyan background    (even)
     # 100 = gray background    (odd)
     def select_background(row_index, column_index)
@@ -44,7 +44,7 @@ module Printables
         elsif capture_background?(row_index, column_index)
             101
         elsif @previous_piece&.location == [row_index, column_index]
-            103
+            43
         elsif active_moves?(row_index, column_index)
             102
         elsif (row_index + column_index).even?
@@ -70,8 +70,6 @@ module Printables
         if box
             text_color = box.color == :white ? 107 : 30
             color_box(text_color, background, box.symbol)
-        # elsif 
-        #     color_box(102, background, "\e[102m   \e[0m")
         else
             color_box(30, background, '   ')
         end
