@@ -87,12 +87,32 @@ module GamePrompts
         HEREDOC
     end
 
-
-
     def user_move_selection
         <<~HEREDOC
 
-        Please enter coordinates for a legal move highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m. 
+        Please enter coordinates for a legal move, square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m. 
+
+        HEREDOC
+    end
+
+    def en_passant_warning
+        <<~HEREDOC
+            You have the option to capture the opposing pawn that just moved. To capture this pawn en passant (in passing), please enter the \e[41m highlighted coordinates\e[0m.
+
+            As part of en passant,\e[36m your pawn will be moved to the square in front of the captured pawn\e[0m.
+
+        HEREDOC
+    end
+
+    def king_check_warning
+        puts "\e[91mWARNING!\e[0m Your King is currently in check!"
+    end
+
+    def castling_warning
+        <<~HEREDOC
+            You have the option to castle, where the King will move 2 spaces and will castle with the rook.
+
+            As part of castling,\e[96m your rook will be moved to the square that the king passes through\e[0m.
 
         HEREDOC
     end
@@ -102,7 +122,7 @@ module GamePrompts
     end
 
     def resign_game
-        puts "#{@current_turn} RESIGNED! #{previous_color.upcase} WINS!!!".colorize(:green)
+        puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!!".colorize(:green)
         @player_count = 0     # since player count is less than 1, ends game
     end
 
@@ -113,5 +133,4 @@ module GamePrompts
         sleep(2)
         exit
     end
-
 end
