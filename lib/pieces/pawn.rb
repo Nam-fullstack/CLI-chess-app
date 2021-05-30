@@ -4,6 +4,8 @@ require_relative 'piece'
 
 # move mechanics for pawn
 class Pawn < Piece
+    attr_reader :en_passant
+
     def initialize(board, attributes)
         super(board, attributes)
         @symbol = " \u265F "
@@ -55,10 +57,11 @@ class Pawn < Piece
         return bonus unless invalid_bonus_move?(board, bonus)
     end
 
+    # determines if pawn has moved or not, if it has, then disables double advance from pawn's possible move mechanics
     def invalid_bonus_move?(board, bonus)
         first_move = single_advance(board)
         return true unless first_move
-        @move || board.data[bonus[0]][bonus[1]]
+        @moved || board.data[bonus[0]][bonus[1]]
     end
 
     # defines capture mechanics for pawns
@@ -77,7 +80,7 @@ class Pawn < Piece
     end
 
     def update_en_passant(row)
-        @en_passant = (row - location[0]).abs ==2
+        @en_passant = (row - location[0]).abs == 2
     end
         
     # NEED TO CHECK THIS, but think logic should be right, piece that moved previously has to be a pawn that has done a double advance and 
@@ -104,4 +107,6 @@ class Pawn < Piece
         temp_board.data[pawn_location[0]][pawn_location[1]] = nil
         temp_board
     end   
+
+    def move_mechanics; end
 end

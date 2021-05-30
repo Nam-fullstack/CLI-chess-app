@@ -13,7 +13,7 @@ class King < Piece
         moves = move_mechanics.inject([]) do |memo, move|
             memo << create_moves(board.data, move[0], move[1])
         end
-        # moves += castling_moves(board)
+        moves += castling_moves(board)
         moves.compact
     end
 
@@ -71,9 +71,20 @@ class King < Piece
         files.none? { |file| board.data[location[0]][file] }
     end
 
+    # determines if King doesn't go through check
     def king_pass_through_safe?(board, file)
         rank = location[0]
         board.data[rank][file].nil? && safe_passage?(board, [rank, file])
+    end
+
+    # finds possible moves for opposing color, determines if King's location (passed in) is included in any of those possible moves
+    def safe_passage?(board, location)
+        pieces = board.data.flatten(1).compact
+        pieces.none? do |piece|
+            next unless piece.color != color && piece.symbol != symbol
+            moves = piece.find_possible_moves(board)
+            moves.include?(location)
+        end
     end
 
     def move_mechanics

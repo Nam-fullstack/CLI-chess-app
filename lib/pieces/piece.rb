@@ -25,6 +25,9 @@ class Piece
         current_moves(board)
     end
 
+    private
+    
+
     def current_moves(board)
         possible_moves = find_possible_moves(board)
         @moves = remove_illegal_moves(board, possible_moves)

@@ -52,12 +52,12 @@ class Board
         movement.update_pieces(self, coordinates)
         reset_board_values
     end
-######################### HAVEN'T ADDED CASTLING AND PAWN PROMOTION FEATURES YET ###########
+######################### HAVEN'T ADDED PAWN PROMOTION FEATURES YET ###########
     def movement_type(coordinates)
         if en_passant_capture?(coordinates)
             'EnPassant'
-        # elsif castling?(coordinates)
-        #     'Castling'
+        elsif castling?(coordinates)
+            'Castling'
         # elsif pawn_promotion?(coordinates)
         #     'PawnPromotion'
         else
@@ -84,6 +84,10 @@ class Board
             next unless piece.color != king.color
             piece.captures.include?(king.location)
         end
+    end
+
+    def possible_castling?
+        @active_piece.symbol == " \u265A " && castling_moves?
     end
 
     def random_black_piece
@@ -136,7 +140,7 @@ class Board
             Knight.new(self, { color: color, location: [rank, 6] }),
             Rook.new(self, { color: color, location: [rank, 7] })
         ]
-    end     # close initial_row
+    end # close initial_row
 
     def update_all_moves_captures
         pieces = @data.flatten(1).compact
@@ -150,12 +154,24 @@ class Board
     def en_passant_pawn?
         two_pawns? && @active_piece.en_passant_rank? && @previous_piece.en_passant
     end
-
+    
     # checks if the previous piece moved was a pawn and current piece being moved is also a pawn
-    # || because chosen to have 2 different sets of unicode for white and black pawns.
     def two_pawns?
-        @previous_piece.symbol == " \u265F " && @active_piece.symbol == " \u2659 " ||
-            @previous_piece.symbol == " \u2659 " && @active_piece.symbol == " \u265F " 
+        @previous_piece.symbol == " \u265F " && @active_piece.symbol == " \u265F " 
+    end
+
+    def castling?(coordinates)
+        file_difference = (coordinates[:column] - @active_piece.location[1]).abs
+        @active_piece&.symbol == " \u265A " && file_difference == 2
+    end
+
+    def castling_moves?
+        location = @active_piece.location
+        rank = location[0]
+        file = location[1]
+        king_side = [rank, file + 2]
+        queen_side = [rank, file - 2]
+        @active_pieces&.moves&.include?(king_side) || @active_piece&.moves&.include?(queen_side)
     end
 
     def no_legal_moves_captures?(color)

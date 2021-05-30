@@ -9,28 +9,28 @@ class Game
     # declares an error message when user enters an invalid input
     class InputError < StandardError
         def message
-            "Invalid input! Please enter file and rank. eg: d2"
+            "Invalid input error! Please enter a piece's file and rank. eg: d2"
         end
     end
 
     # declares an error message when user enters coordinates of opponent's piece
     class CoordinatesError < StandardError
         def message
-            "Invalid coordinates! Please enter file and rank of the correct color."
+            "Invalid coordinates error! Please enter file and rank of a piece that is your color."
         end
     end
 
     # declares an error message when user enters invalid coordinates for move
     class MoveError < StandardError
         def message
-            "Invalid coordinates! Please enter a valid file and rank to move."
+            "Invalid move error! Please enter file and rank of a valid move for this piece: square(s) highlighted in \e[102m   \e[0m "
         end
     end
 
     # declares an error message when user selects a piece with no legal moves
     class PieceError < StandardError
         def message
-            "Invalid piece! There are no legal moves for this piece."
+            "No moves error! There are no legal moves for this piece and/or King is under check."
         end
     end
 
@@ -55,7 +55,7 @@ class Game
     end
 
     def player_turn
-        if @player_count == 1 && @current_turn == :black
+        if @player_count <= 1 && @current_turn == :black    
             puts "Black to move:".upcase
             computer_player_turn
         else
@@ -109,6 +109,7 @@ class Game
     end
 
     def user_select_piece
+        puts king_check_warning if @board.king_in_check?(@current_turn)
         input = user_input(user_piece_selection)
         validate_piece_input(input)
         resign_game if input.upcase == "Q"
@@ -118,7 +119,7 @@ class Game
 
     def user_select_move
         puts en_passant_warning if @board.possible_en_passant?
-
+        puts castling_warning if @board.
         input = user_input(user_move_selection)
         validate_move_input(input)
         resign_game if input.upcase == "Q"
@@ -137,7 +138,6 @@ class Game
         @board.random_black_move
     end
 
-    # need to double check if this works with RSPEC!! 
     def validate_piece_input(input)
         raise InputError unless input.match?(/^[a-h][1-8]$|^[q]$|^[s]$/i)
     end
