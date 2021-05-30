@@ -54,5 +54,17 @@ class PawnPromotionMovement < BasicMovement
         select_promotion_piece
     end
 
-    
+    def create_promotion_piece(choice)
+        color = @board.active_piece.color
+        case choice.to_i
+        when 1
+            Queen.new(@board, { color: color, location: [row, column] })
+        when 2
+            Bishop.new(@board, { color: color, location: [row, column] })
+        when 3
+            Knight.new(@board, { color: color, location: [row, column] })
+        else
+            Rook.new(@board, { color: color, location: [row, column] })
+        end
+    end
 end
