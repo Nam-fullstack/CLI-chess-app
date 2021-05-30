@@ -33,4 +33,11 @@ class PawnPromotionMovement < BasicMovement
             create_promotion_piece(choice)
         end
     end
+
+    def remove_pawn_observer
+        location = @board.active_piece.location
+        @board.delete_observer(@board.data[location[0]][location[1]])
+    end
+    
+    
 end
