@@ -8,6 +8,8 @@ class PawnPromotionMovement < BasicMovement
         super
     end
 
+    def update_pieces(board, coordinates)
 
+    end
 
 end
