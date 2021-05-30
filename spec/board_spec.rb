@@ -100,6 +100,14 @@ RSpec.describe Board do
         it 'has 8th rank king side Rook' do
             expect(board.data[0][7].instance_of?(Rook)).to be true
         end
+
+        it 'has 2nd Rank of pawns' do
+            expect(board.data[6].all? { |piece| piece.instance_of?(Pawn) }).to be true
+        end
+
+        it 'has 7th Rank of pawns' do
+            expect(board.data[1].all? { |piece| piece.instance_of?(Pawn) }).to be true
+        end
     end
 end
 
