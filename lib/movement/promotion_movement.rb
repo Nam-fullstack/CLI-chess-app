@@ -39,5 +39,12 @@ class PawnPromotionMovement < BasicMovement
         @board.delete_observer(@board.data[location[0]][location[1]])
     end
     
+    def update_promotion_coordinates(piece)
+        @board.data[row][column] = piece
+    end
+
+    def update_board_active_piece(piece)
+        @board.active_piece = piece
+    end
     
 end
