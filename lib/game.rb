@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'game_prompts'
-require_relative 'board'
-require_relative 'notation_converter'
+# require_relative 'board'
+# require_relative 'notation_converter'
 
 
 class Game
@@ -55,7 +55,7 @@ class Game
     end
 
     def player_turn
-        if @player_count <= 1 && @current_turn == :black    
+        if @player_count >= 1 && @current_turn == :black    
             puts "Black to move:".upcase
             computer_player_turn
         else
@@ -88,7 +88,6 @@ class Game
     def select_piece_coordinates
         input = user_select_piece
         return unless @player_count.positive?
-
         coordinates = translate_coordinates(input)
         validate_piece_coordinates(coordinates)
         @board.update_active_piece(coordinates)
