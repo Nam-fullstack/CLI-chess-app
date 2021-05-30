@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'printables'
 require 'observer'
 
@@ -8,12 +10,12 @@ class Board
     attr_accessor :data, :active_piece, :previous_piece 
 
     def initialize(data = Array.new(8) { Array.new(8) }, parameters = {} )
+        @mode = parameters[:mode]
         @data = data
         @active_piece = parameters[:active_piece]
         @previous_piece = parameters[:previous_piece]
         @white_king = parameters[:white_king]
         @black_king = parameters[:black_king]
-        @mode = parameters[:mode]
     end
 
     def initial_placement
@@ -52,14 +54,14 @@ class Board
         movement.update_pieces(self, coordinates)
         reset_board_values
     end
-######################### HAVEN'T ADDED PAWN PROMOTION FEATURES YET ###########
+
     def movement_type(coordinates)
         if en_passant_capture?(coordinates)
             'EnPassant'
         elsif castling?(coordinates)
             'Castling'
-        # elsif pawn_promotion?(coordinates)
-        #     'PawnPromotion'
+        elsif pawn_promotion?(coordinates)
+            'PawnPromotion'
         else
             'Basic'
         end
@@ -98,7 +100,7 @@ class Board
         end
         location = black_pieces.sample.location
         { row: location[0], column: location [1] }
-    end     # close random_black_piece
+    end
 
     def random_black_move
         possible_moves = @active_piece.moves + @active_piece.captures
@@ -158,6 +160,15 @@ class Board
     # checks if the previous piece moved was a pawn and current piece being moved is also a pawn
     def two_pawns?
         @previous_piece.symbol == " \u265F " && @active_piece.symbol == " \u265F " 
+    end
+
+    def pawn_promotion?(coordinates)
+        @active_piece.symbol = " \u265F " && promotion_rank?(coordinates[:row])
+    end
+
+    def promotion_rank?(rank)
+        color = @active_piece.color
+        (color == :white && rank.zero?) || (color == :black && rank ==7)
     end
 
     def castling?(coordinates)

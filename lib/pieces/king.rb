@@ -2,7 +2,7 @@
 
 require_relative 'piece'
 
-# move mechanics for King
+# logic for King
 class King < Piece
     def initialize(board, attributes)
         super(board, attributes)
@@ -61,6 +61,7 @@ class King < Piece
             king_pass_through_safe?(board, queen_side_pass)
     end
 
+    # checks if King and rook has not moved
     def unmoved_rook?(board, file)
         piece = board.data[location[0]][file]
         return false unless piece

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require_relative '../board'
 require_relative '../move_validator'
@@ -24,9 +25,6 @@ class Piece
         current_captures(board)
         current_moves(board)
     end
-
-    private
-    
 
     def current_moves(board)
         possible_moves = find_possible_moves(board)

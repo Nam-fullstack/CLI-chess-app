@@ -64,7 +64,7 @@ class Pawn < Piece
         @moved || board.data[bonus[0]][bonus[1]]
     end
 
-    # defines capture mechanics for pawns
+    # defines capture mechanics for pawns, can only capture on diagonal in direction it goes
     def basic_capture (board, file)
         rank = @location[0] + rank_direction
         return [rank, file] if opposing_piece?(rank, file, board.data)
@@ -79,6 +79,7 @@ class Pawn < Piece
         return capture if valid_en_passant?(board)
     end
 
+    # only enables en passant if the pawn has double advanced
     def update_en_passant(row)
         @en_passant = (row - location[0]).abs == 2
     end
