@@ -33,6 +33,49 @@ class King < Piece
         [rank, file] if opposing_piece?(rank, file, data)
     end
 
+    def castling_moves(board)
+        castling_moves = []
+        rank = location[0]
+        castling_moves << [rank, 6] if king_side_castling?(board)
+        castling_moves << [rank, 2] if queen_side_castling?(board)
+        castling_moves
+    end
+
+    def king_side_castling?(board)
+        king_side_pass = 5
+        empty_files = [6]
+        king_side_rook = 7
+        unmoved_rook?(board, king_side_rook) && 
+            empty_files?(board, empty_files) &&
+            !board.king_in_check?(@color) &&
+            king_pass_through_safe?(board, king_side_pass)
+    end
+
+    def queen_side_castling?(board)
+        queen_side_pass = 3
+        empty_files = [1, 2]
+        queen_side_rook = 0
+        unmoved_rook?(board, queen_side_rook) &&
+            empty_files?(board, empty_files) &&
+            !board.king_in_check?(@color) &&
+            king_pass_through_safe?(board, queen_side_pass)
+    end
+
+    def unmoved_rook?(board, file)
+        piece = board.data[location[0]][file]
+        return false unless piece
+        moved == false && piece.symbol == " \u265C " && piece.moved == false
+    end
+
+    def empty_files?(board, files)
+        files.none? { |file| board.data[location[0]][file] }
+    end
+
+    def king_pass_through_safe?(board, file)
+        rank = location[0]
+        board.data[rank][file].nil? && safe_passage?(board, [rank, file])
+    end
+
     def move_mechanics
         [[1, 1], [1, 0], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1]]
     end
