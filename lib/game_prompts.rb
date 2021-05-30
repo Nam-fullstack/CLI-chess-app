@@ -25,6 +25,16 @@ module GamePrompts
         repeat_game
     end
 
+    def final_message
+        return unless @player_count.positive?
+        if @board.king_in_check?(@current_turn)
+            puts "\e[96m CHECKMATE!! #{previous_color.upcase}\e[0m WINS!"
+        else 
+            puts "\e[96m DRAW! STALEMATE!"
+        end
+    end
+
+    private
 
     def game_mode_choices
         <<~HEREDOC
@@ -73,9 +83,9 @@ module GamePrompts
         return unless @player_count.positive?
 
         if @board.king_in_check?(@current_turn)
-            puts "\e[106mCHECKMATE! #{previous_color.upcase} WINS!!\e[0m"
+            puts "CHECKMATE! #{previous_color.upcase} WINS!!".colorize(:green)
         else
-            puts "\e[106mSTALEMATE! Game is a draw."
+            puts "STALEMATE! Game is a draw.".colorize(:cyan)
         end
     end
 
@@ -123,7 +133,7 @@ module GamePrompts
 
     def resign_game
         puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!!".colorize(:green)
-        @player_count = 0     # since player count is less than 1, ends game
+        @player_count = 0    # since player count is less than 1, ends game
     end
 
     def exit_program
