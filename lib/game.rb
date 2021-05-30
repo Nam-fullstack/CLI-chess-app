@@ -118,7 +118,7 @@ class Game
 
     def user_select_move
         puts en_passant_warning if @board.possible_en_passant?
-        puts castling_warning if @board.
+        puts castling_warning if @board.possible_castling?
         input = user_input(user_move_selection)
         validate_move_input(input)
         resign_game if input.upcase == "Q"

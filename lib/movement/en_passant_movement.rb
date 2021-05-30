@@ -8,7 +8,7 @@ class EnPassantMovement < BasicMovement
         super
     end
 
-    def update_pieces(board, coordiantes)
+    def update_pieces(board, coordinates)
         @board = board
         @row = coordinates[:row]
         @column = coordinates[:column]

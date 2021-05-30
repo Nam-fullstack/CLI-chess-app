@@ -163,12 +163,12 @@ class Board
     end
 
     def pawn_promotion?(coordinates)
-        @active_piece.symbol = " \u265F " && promotion_rank?(coordinates[:row])
+        @active_piece.symbol == " \u265F " && promotion_rank?(coordinates[:row])
     end
 
     def promotion_rank?(rank)
         color = @active_piece.color
-        (color == :white && rank.zero?) || (color == :black && rank ==7)
+        (color == :white && rank.zero?) || (color == :black && rank == 7)
     end
 
     def castling?(coordinates)
