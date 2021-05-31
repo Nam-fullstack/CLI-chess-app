@@ -112,6 +112,8 @@ class Board
         @mode = :computer
     end
 
+    # if player has no more legal moves or captures, game over - dependant on conditions:
+    # if King is in check or not determines if game is Stalemate or Checkmate
     def game_over?
         return false unless @previous_piece
         previous_color = @previous_piece.color == :white ? :black : :white
