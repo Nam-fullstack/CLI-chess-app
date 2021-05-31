@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'tty-prompt'
+require 'tty-progressbar'
+
 
 require_relative 'board'
 require_relative 'printables'
@@ -24,7 +26,7 @@ require_relative 'movement/promotion_movement'
 extend GamePrompts
 
 def play_game(input)
-    case(input.to_i)
+    case(input)
     when 1
         single_player = Game.new(1)
         single_player.setup_board
@@ -39,37 +41,19 @@ def play_game(input)
         how_to_play
     when 5
         exit_program
-    end
-
-
-    # if input == "1"
-    # # if input == "\e[1mSingle Player\e[0m"
-    #     single_player = Game.new(1)
-    #     single_player.setup_board
-    #     single_player.play
-    # elsif input == "2"
-    # # elsif input == "\e[1mTwo Player\e[0m"
-    #     two_payer = Game.new(2)
-    #     two_payer.setup_board
-    #     two_payer.play
-    # elsif input == "3"
-    # # elsif input == "\e[1mLoad Game\e[0m"
-    #     load_game.play
-    # elsif input == "4"
-    #     how_to_play
-    # elsif input == "5"
-    #     exit
-    # end
+    end    
 end
-
-# loop do
-#     menu_option
-#     play_game(@user_input)
-# end
 
 loop do
-    puts game_mode_choices
-    mode = select_game_mode
-    play_game(mode)
-    break if repeat_game == :Quit
+    select_game_mode
+    play_game(@mode)
+    break if @mode == 5
 end
+
+
+# loop do
+#     puts game_mode_choices
+#     mode = select_game_mode
+#     play_game(mode)
+#     break if repeat_game == :Quit
+# end

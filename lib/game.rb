@@ -55,9 +55,12 @@ class Game
     end
 
     def player_turn
-        if @player_count >= 1 && @current_turn == :black    
+        if @player_count == 1 && @current_turn == :black    
             puts "Black to move:".upcase
             computer_player_turn
+        elsif @player_count == 2 && @current_turn == :black    
+            puts "Black to move:".upcase
+            human_player_turn
         else
             puts "White to move:".upcase
             human_player_turn
