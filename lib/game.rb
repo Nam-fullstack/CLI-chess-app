@@ -9,28 +9,28 @@ class Game
     # declares an error message when user enters an invalid input
     class InputError < StandardError
         def message
-            "Invalid input error! Please enter a piece's file and rank. eg: d2"
+            "\e[91mInvalid input!\e[0m Please enter a \e[94mletter\e[0m between a-h and \e[94mnumber\e[0m between 1-8.\e[94m eg: d2\e[0m"
         end
     end
 
-    # declares an error message when user enters coordinates of opponent's piece
+    # declares an error message when user enters coordinates that aren't player's pieces, i.e. opponent's pieces or empty square
     class CoordinatesError < StandardError
         def message
-            "Invalid coordinates error! Please enter file and rank of a piece that is your color."
+            "\e[91mInvalid coordinates!\e[0m Please enter file and rank of a piece that is \e[94myour color\e[0m."
         end
     end
 
     # declares an error message when user enters invalid coordinates for move
     class MoveError < StandardError
         def message
-            "Invalid move error! Please enter file and rank of a valid move for this piece: square(s) highlighted in \e[102m   \e[0m "
+            "\e[91mInvalid move!\e[0m Please enter file and rank of a \e[92mvalid move\e[0m for this piece."
         end
     end
 
     # declares an error message when user selects a piece with no legal moves
     class PieceError < StandardError
         def message
-            "No moves error! There are no legal moves for this piece and/or King is under check."
+            "There are\e[91m no legal moves\e[0m for this piece and/or \e[91mKing is under check\e[0m. \nPlease \e[94mselect another piece to move."
         end
     end
 

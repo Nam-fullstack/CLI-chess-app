@@ -115,7 +115,7 @@ module GamePrompts
     def user_piece_selection
         <<~HEREDOC
 
-        Please enter the coordinates of the piece you wish to move.
+        Please enter the \e[94mcoordinates\e[0m of the piece you wish to move.
 
         HEREDOC
     end
