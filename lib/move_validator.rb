@@ -35,6 +35,8 @@ class MoveValidator
         @current_piece.update_location(move[0], move[1])
     end
 
+    # determines if the King is safe (not under check, returns false). 
+    # If King's location matches any possible captures for any of opponent's pieces.
     def safe_king?(kings_location)
         pieces = @board.data.flatten(1).compact
         pieces.none? do |piece|
@@ -44,6 +46,8 @@ class MoveValidator
         end
     end
 
+    # finds location of King to determine if selected piece can move or not based on King's location and if King will be safe
+    # based on the user's desired move, if it's not, will cause MoveError message alert
     def find_king_location
         return if @current_piece.symbol == " \u265A "
         if @current_piece.color == :black
