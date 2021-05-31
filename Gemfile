@@ -11,5 +11,6 @@ gem 'yaml', '~> 0.1.0'
 gem 'tty-cursor'
 gem 'tty-logger'
 
+# CANNOT INSTALL THESE, some error with RMAGIC
 # gem 'arty', '~> 0.0.2'
 # gem 'asciiart', '~> 0.0.9'

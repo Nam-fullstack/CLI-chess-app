@@ -74,7 +74,7 @@ module Printables
         end
     end
 
-    # prints the final box/square with the specified background, font and string (in this case, ascii chess symbol)
+    # prints the final box/square with the specified text color, background/highlight color, and string (in this case, ascii chess symbol)
     def color_box(font, background, string)
         print "\e[#{font};#{background}m#{string}\e[0m"
     end
