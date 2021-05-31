@@ -50,7 +50,7 @@ module GamePrompts
         if @board.king_in_check?(@current_turn)
             puts "\e[96m CHECKMATE!! #{previous_color.upcase}\e[0m WINS!"
         else 
-            puts "\e[96m DRAW! STALEMATE!"
+            puts "\n\e[96m DRAW! STALEMATE! \n\n"
         end
     end
 
@@ -106,9 +106,9 @@ module GamePrompts
         return unless @player_count.positive?
 
         if @board.king_in_check?(@current_turn)
-            puts "CHECKMATE! #{previous_color.upcase} WINS!!".colorize(:green)
+            puts "\nCHECKMATE! #{previous_color.upcase} WINS!!\n\n".colorize(:green)
         else
-            puts "STALEMATE! Game is a draw.".colorize(:cyan)
+            puts "\nSTALEMATE! Game is a draw.\n\n".colorize(:cyan)
         end
     end
 
@@ -129,18 +129,18 @@ module GamePrompts
     end
 
     def en_passant_warning
-        puts "\n\nYou have the option to capture the opposing pawn that just moved." 
-        puts "To capture this pawn en passant (in passing), please enter the \e[41mhighlighted coordinates\e[0m."
-        puts "As part of en passant, your\e[36m pawn will be moved to the square in front of the captured pawn\e[0m."
+        puts "\n\n\e[96mYou have the option to capture the opposing pawn that just moved.\e[0m" 
+        puts "\e[91mTo capture this pawn en passant\e[0m (in passing), please enter the \e[41mhighlighted coordinates\e[0m."
+        puts "As part of en passant, your\e[96m pawn will be moved to the square in front of the captured pawn\e[0m."
     end
 
     def king_check_warning
-        puts "\e[91mWARNING!\e[0m Your King is currently in \e[91mcheck!\e[0m"
+        puts "\e[91mWARNING!\e[0m Your \u2654 King is currently in \e[91mcheck!\e[0m"
     end
 
     def castling_warning
-        puts "\e[96mYou have the option to castle: \e[0m\n the King will move 2 spaces and will castle with the rook."
-        puts "As part of castling your \e[96mrook will be moved to the square that the king passes through\e[0m."
+        puts "\e[96mYou have the option to castle: \e[0m \n\e[95mYour \u2654 King will move 2 spaces\e[0m and will castle with the rook."
+        puts "As part of castling your \e[96m\u2656 Rook will be moved to the square that the king passes through\e[0m."
     end
 
     def previous_color
@@ -153,13 +153,13 @@ module GamePrompts
     end
 
     def exit_program
-        sleep(1)
         input = puts "Are you sure you want to Exit?"
-        
-        puts "Thank you for playing CLI Chess!"
-        return_to_menu
-        
+        input == "yes" ? quit_app : return_to_menu
+    end
+    
+    def quit_app
         system 'clear'
+        puts "Thank you for playing CLI Chess! Hope you enjoyed this game!"
         sleep(2)
         exit
     end
