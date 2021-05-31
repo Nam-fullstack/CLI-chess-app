@@ -5,7 +5,7 @@ require 'colorize'
 module Printables
     private
     
-    # prints out chess board with file(letter) and rank(number) coordinates
+    # prints out chess board with file (letter) and rank (number) coordinates
     def print_chess_board
         system 'clear'
         puts "\n    a  b  c  d  e  f  g  h".colorize(:cyan)
@@ -54,10 +54,12 @@ module Printables
         end
     end
 
+    # determines if the selected piece has any possible captures, returns the coordinates
     def capture_background?(row, column)
         @active_piece&.captures&.any?([row, column]) && @data[row][column]
     end
 
+    # determines possible legal moves for selected piece and returns the location(s)
     def active_moves?(row, column)
         @active_piece&.moves&.any?([row, column])
     end
