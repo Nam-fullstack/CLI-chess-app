@@ -2,7 +2,7 @@
 
 # logic for basic moves for all pieces
 # when a piece moves, have to update it's location at the new coordinates and also remove the piece from the original location.
-# when a piece is capture, must remove (delete) it as an observer.
+# when a piece is captured, must remove (delete) it as an observer.
 # also need to update active piece location to indicate last move.
 class BasicMovement
     attr_reader :row, :column, :board

@@ -10,6 +10,7 @@ require_relative 'game'
 require_relative 'game_prompts'
 require_relative 'notation_converter'
 require_relative 'move_validator'
+require_relative 'serializer'
 require_relative 'pieces/piece'
 require_relative 'pieces/king'
 require_relative 'pieces/queen'
@@ -24,6 +25,7 @@ require_relative 'movement/castling_movement'
 require_relative 'movement/promotion_movement'
 
 extend GamePrompts
+extend Serializer
 
 def play_game(input)
     case(input)

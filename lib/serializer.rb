@@ -5,7 +5,13 @@ module Serializer
     def save_game
         Dir.mkdir 'saved_games' unless Dir.exist? 'saved_games'
         filename = create_filename
-
+        File.open("saved_games/#{filename}", 'w+') do |file|
+            Marshal.dump(self, file)
+        end
+        puts "Game was saved as \e[96m#{filename}\e[0m"
+        @player_counter = 0
+    rescue SystemCallError => e
+        puts "\e[91mError while writing to file #{filename}.\e[0m"
     end
 
     def create_filename

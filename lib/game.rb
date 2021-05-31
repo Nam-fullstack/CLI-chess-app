@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'game_prompts'
+require_relative 'serializer'
 # require_relative 'board'
 # require_relative 'notation_converter'
 
