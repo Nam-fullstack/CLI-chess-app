@@ -5,7 +5,6 @@ require_relative 'serializer'
 # require_relative 'board'
 # require_relative 'notation_converter'
 
-
 class Game
     # declares an error message when user enters an invalid input
     class InputError < StandardError
@@ -36,7 +35,7 @@ class Game
     end
 
     include GamePrompts
-# 
+    include Serializer
 
     def initialize(number, board = Board.new, current_turn = :white)
         @player_count = number
@@ -96,9 +95,9 @@ class Game
         validate_piece_coordinates(coordinates)
         @board.update_active_piece(coordinates)
         validate_active_piece
-    rescue StandardError => e
-        puts e.message
-        retry
+    # rescue StandardError => e
+    #     puts e.message
+    #     retry
     end
 
     def select_move_coordinates
@@ -106,17 +105,17 @@ class Game
         coordinates = translate_coordinates(input)
         validate_move(coordinates)
         coordinates
-    rescue StandardError => e
-        puts e.message
-        retry
+    # rescue StandardError => e
+    #     puts e.message
+    #     retry
     end
 
     def user_select_piece
         puts king_check_warning if @board.king_in_check?(@current_turn)
         input = user_input(user_piece_selection)
         validate_piece_input(input)
-        resign_game if input.upcase == "Q"
-        save_game if input.upcase == "S"
+        resign_game if input.upcase == 'Q'
+        save_game if input.upcase == 'S'
         input
     end
 

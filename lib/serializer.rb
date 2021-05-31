@@ -8,10 +8,11 @@ module Serializer
         File.open("saved_games/#{filename}", 'w+') do |file|
             Marshal.dump(self, file)
         end
-        puts "Game was saved as \e[96m#{filename}\e[0m"
-        @player_counter = 0
+        puts "Game was saved as \e[96m#{filename}\e[0m\n"
+        @player_count = 0
     rescue SystemCallError => e
         puts "\e[91mError while writing to file #{filename}.\e[0m"
+
     end
 
     def create_filename
@@ -35,7 +36,7 @@ module Serializer
         else
             print_saved_games(saved_games)
             file_number = select_saved_game(saved_games.size)
-            saved_games[file_number.to_i -1]
+            saved_games[file_number.to_i - 1]
         end
     end
 
