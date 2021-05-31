@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/notation_converter.rb'
+require_relative '../lib/notation_converter'
 
 RSpec.describe NotationConverter do
     subject(:translator) { described_class.new }
