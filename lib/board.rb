@@ -92,6 +92,7 @@ class Board
         @active_piece.symbol == " \u265A " && castling_moves?
     end
 
+    # selects a random black piece if it has any legal moves/captures
     def random_black_piece
         pieces = @data.flatten(1).compact
         black_pieces = pieces.select do |piece|
@@ -102,6 +103,7 @@ class Board
         { row: location[0], column: location [1] }
     end
 
+    # selects random legal move/capture
     def random_black_move
         possible_moves = @active_piece.moves + @active_piece.captures
         location = possible_moves.sample
@@ -184,7 +186,7 @@ class Board
         file = location[1]
         king_side = [rank, file + 2]
         queen_side = [rank, file - 2]
-        @active_pieces&.moves&.include?(king_side) || @active_piece&.moves&.include?(queen_side)
+        @active_piece&.moves&.include?(king_side) || @active_piece&.moves&.include?(queen_side)
     end
 
     def no_legal_moves_captures?(color)
