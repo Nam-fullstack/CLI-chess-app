@@ -39,13 +39,13 @@ def play_game(selection)
 end
 
 def start_game(players)
-  loading(2)
+  loading(0.2, 15)
   player = Game.new(players)
   player.setup_board
   player.play
 end
 
-loading(2)
+loading(2, 50)
 
 loop do
   select_game_mode

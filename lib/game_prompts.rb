@@ -6,17 +6,18 @@ require 'tty-progressbar'
 
 # contains text prompts for chess game
 module GamePrompts
-
-  def loading(time)
+  def loading(time, loads)
     puts "\n\n"
-    bar = TTY::ProgressBar.new("LOADING [:bar] :percent", bar_format: :tread, total: 50, width: 70)
-    50.times do
-        sleep(0.045)
-        bar.advance
+    bar = TTY::ProgressBar.new("LOADING [:bar] :percent", bar_format: :tread, total: loads, width: 70)
+    loads.times do
+      sleep(0.045)
+      bar.advance
     end
     pausing(time)
   end
+
   def select_game_mode
+    puts "\n\n"
     prompt = TTY::Prompt.new
     options = {
       "Single Player" => 1,
@@ -28,15 +29,10 @@ module GamePrompts
     @mode = prompt.select("MAIN MENU", options, convert: :integer)
   end
 
-#   def loading(time)
-#     bar = TTY::ProgressBar.new("Loading [:bar] :percent", total: 100)
-#     pausing(time)
-#   end
-
   def return_to_menu
     prompt = TTY::Prompt.new
-    choice = promopt.select('Do you want to go back to the Main Menu?', ['Yes', 'Quit'])
-    if choice == 'quit'
+    choice = prompt.select('Do you want to go back to the Main Menu?', ['Yes', 'Quit'])
+    if choice == 'Quit'
         exit_program
     end
   end
@@ -83,8 +79,9 @@ module GamePrompts
     puts 'STEP 1: '.colorize(:magenta) + 'Select the coordinates of piece you wish to move.' + " eg. d2 \n".colorize(:cyan)
     puts 'STEP 2: '.colorize(:magenta) + "Enter coordinates of\e[92m valid move\e[0m:"
     puts "        square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m\n\n"
-    puts "For more information on how to play chess, please view \e[94mHow To Play Chess.pdf\e[0m] file.\n\n"
+    puts "For more information on how to play chess, please view \e[94mHow To Play Chess.pdf\e[0m file.\n\n"
     sleep(5)
+    return_to_menu
   end
 
   def game_end_message
