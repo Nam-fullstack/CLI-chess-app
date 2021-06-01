@@ -37,7 +37,7 @@ class Pawn < Piece
     def rank_direction
         color == :white ? -1 : 1
     end
-    
+
     # determines if pawn is in the right rank to capture en passant
     def en_passant_rank?
         rank = location[0]
@@ -61,21 +61,26 @@ class Pawn < Piece
     def invalid_bonus_move?(board, bonus)
         first_move = single_advance(board)
         return true unless first_move
+
         @moved || board.data[bonus[0]][bonus[1]]
     end
 
     # defines capture mechanics for pawns, can only capture on diagonal in direction it goes
-    def basic_capture (board, file)
+    def basic_capture(board, file)
         rank = @location[0] + rank_direction
         return [rank, file] if opposing_piece?(rank, file, board.data)
     end
 
-    # defines en passant capture mechanics: 1) has to be adjacent file, only when it is, determine if it's a valid en passant capture
+    # defines en passant capture mechanics: 
+    # 1) has to be adjacent file, only when it is, 
+    # 2) determine if it's a valid en passant capture
     def en_passant_capture(board)
         capture = board.previous_piece&.location
         return unless capture
+
         column_difference = (@location[1] - capture [1]).abs
         return unless column_difference == 1
+
         return capture if valid_en_passant?(board)
     end
 
@@ -83,10 +88,10 @@ class Pawn < Piece
     def update_en_passant(row)
         @en_passant = (row - location[0]).abs == 2
     end
-        
-    # NEED TO CHECK THIS, but think logic should be right, piece that moved previously has to be a pawn that has done a double advance and 
-    # consequently, have en passant as true. Capturing pawn has to be in the correct rank for color
-    # AND also need to check if en passant move and capture will not leave the King in check (legal_en_passant). 
+
+    # NEED TO CHECK THIS, but think logic should be right, piece that moved previously has to be a pawn that has 
+    # done a double advance and consequently, have en passant as true. Capturing pawn has to be in the correct rank for color
+    # AND also need to check if en passant move and capture will not leave the King in check (legal_en_passant).
     def valid_en_passant?(board)
         en_passant_rank? &&
           symbol == board.previous_piece.symbol &&

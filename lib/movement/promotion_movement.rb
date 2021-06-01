@@ -50,7 +50,7 @@ class PawnPromotionMovement < BasicMovement
     def select_promotion_piece
         choice = gets.strip
         return choice if choice.match?(/^[1-4]$/)
-        puts "Input error! Please enter 1, 2, 3, or 4."
+        puts 'Input error! Please enter 1, 2, 3, or 4.'
         select_promotion_piece
     end
 

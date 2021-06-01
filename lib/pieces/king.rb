@@ -17,12 +17,13 @@ class King < Piece
         moves.compact
     end
 
-    private 
+    private
 
     def create_moves(data, rank_change, file_change)
         rank = @location[0] + rank_change
         file = @location[1] + file_change
         return unless valid_location?(rank, file)
+
         [rank, file] unless data[rank][file]
     end
 
@@ -30,6 +31,7 @@ class King < Piece
         rank = @location[0] + rank_change
         file = @location[1] + file_change
         return unless valid_location?(rank, file)
+
         [rank, file] if opposing_piece?(rank, file, data)
     end
 
@@ -45,7 +47,7 @@ class King < Piece
         king_side_pass = 5
         empty_files = [6]
         king_side_rook = 7
-        unmoved_rook?(board, king_side_rook) && 
+        unmoved_rook?(board, king_side_rook) &&
             empty_files?(board, empty_files) &&
             !board.king_in_check?(@color) &&
             king_pass_through_safe?(board, king_side_pass)
@@ -56,15 +58,16 @@ class King < Piece
         empty_files = [1, 2]
         queen_side_rook = 0
         unmoved_rook?(board, queen_side_rook) &&
-            empty_files?(board, empty_files) &&
-            !board.king_in_check?(@color) &&
-            king_pass_through_safe?(board, queen_side_pass)
+          empty_files?(board, empty_files) &&
+          !board.king_in_check?(@color) &&
+          king_pass_through_safe?(board, queen_side_pass)
     end
 
     # checks if King and rook has not moved
     def unmoved_rook?(board, file)
         piece = board.data[location[0]][file]
         return false unless piece
+
         moved == false && piece.symbol == " \u265C " && piece.moved == false
     end
 
@@ -78,11 +81,13 @@ class King < Piece
         board.data[rank][file].nil? && safe_passage?(board, [rank, file])
     end
 
-    # finds possible moves for opposing color, determines if King's location (passed in) is included in any of those possible moves
+    # finds possible moves for opposing color, determines if King's location (passed in) 
+    # is included in any of those possible moves
     def safe_passage?(board, location)
         pieces = board.data.flatten(1).compact
         pieces.none? do |piece|
             next unless piece.color != color && piece.symbol != symbol
+
             moves = piece.find_possible_moves(board)
             moves.include?(location)
         end
