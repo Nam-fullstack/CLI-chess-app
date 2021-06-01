@@ -1,77 +1,76 @@
 # frozen_string_literal: true
 
 require 'colorize'
+require 'tty-prompt'
+require 'tty-progressbar'
 
 # contains text prompts for chess game
 module GamePrompts
+  def loading(time, loads)
+    puts "\n\n"
+    bar = TTY::ProgressBar.new("LOADING [:bar] :percent", bar_format: :tread, total: loads, width: 70)
+    loads.times do
+      sleep(0.045)
+      bar.advance
+    end
+    pausing(time)
+  end
+
   def select_game_mode
+    puts "\n\n"
     prompt = TTY::Prompt.new
-    menu_select = prompt.select('MAIN MENU',
-                                ['1 - Single Player',
-                                 '2 - Two Player',
-                                 '3 - Load Game',
-                                 '4 - How to Play',
-                                 '5 - Quit'])
-    @mode = menu_select.to_i
+    options = {
+      "Single Player" => 1,
+      "Two Player" => 2,
+      "Load Game" => 3,
+      "How to Play" => 4,
+      "Exit" => 5
+    }
+    @mode = prompt.select("MAIN MENU", options, convert: :integer)
   end
 
   def return_to_menu
-    @back_to_menu = TTY::Prompt.new
-    @navigation = @back_to_menu.select(' ', ['Back to Menu', 'Start a New Game', 'Exit'])
-    puts "This is the users selection: #{@navigation}"
-  end
-
-  # def select_game_mode
-  #     user_mode_select = gets.strip
-  #     return user_mode_select if user_mode_select.match?(/^[12345]$/)   # will only return if input matches defined numbers in []
-
-  #     puts "Input error! Please select from one of the menu options: 1, 2, 3, 4 or 5."
-  #     select_game_mode
-  # end
-
-  def repeat_game
-    puts repeat_game_choices
-    input = gets.strip
-    choice = input.upcase == 'Q' ? exit_program : :repeat
-    return choice if input.match?(/^[QP]$/i)
-
-    puts 'Input error! Please enter Q or P.'
-    repeat_game
-  end
-
-  def final_message
-    return unless @player_count.positive?
-
-    if @board.king_in_check?(@current_turn)
-      puts "\e[96m CHECKMATE!! #{previous_color.upcase}\e[0m WINS!"
-    else
-      puts "\n\e[96m DRAW! STALEMATE! \n\n"
+    prompt = TTY::Prompt.new
+    choice = prompt.select('Do you want to go back to the Main Menu?', ['Yes', 'Quit'])
+    if choice == 'Quit'
+        exit_program
     end
   end
 
+  def resign_game
+    prompt = TTY::Prompt.new
+    resign = prompt.select('Are you sure you want to resign?', 'Yes', 'No')
+    if resign == 'Yes'
+      puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
+      pausing(2.4)
+      @player_count = 0 # when player count is less than 1, ends game
+    else
+      play
+    end
+  end
+
+  def exit_program
+    prompt = TTY::Prompt.new
+    final_choice = prompt.select('Are you sure you want to Exit?', 'Yes', 'No')
+    if final_choice == 'Yes' 
+      pausing(0.5)
+      quit_app
+    end
+  end
+
+  def quit_app
+    system 'clear'
+    puts "Thank you for playing CLI Chess! \nHope you enjoyed this game!"
+    sleep(1)
+    exit
+  end
+
+  def pausing(time)
+    sleep(time)
+    system 'clear'
+  end
+
   private
-
-  # def game_mode_choices2
-  #     <<~HEREDOC
-
-  #     \e[45m Welcome to CLI Chess! \e[0m
-
-  #     To START, enter one of the following to play:
-
-  #         \e[96m (1)\e[0m to play a \e[93mNew 1-Player\e[0m game against the computer
-  #         \e[96m (2)\e[0m to play a \e[93mNew 2-Player\e[0m game
-  #         \e[96m (3)\e[0m to play a \e[93mSaved\e[0m game
-  #         \e[96m (4)\e[0m to view \e[93mHow To Play\e[0m
-  #         \e[96m (5)\e[0m to \e[93mExit Program\e[0m
-
-  #     HEREDOC
-  # end
-
-  # \e[45mStep 1:\e[0m
-  # Select the coordinates of the piece that you want to move.
-
-  # \e[45mStep 2:\e[0m
-  # Enter coordinates of a legal move highlighted in \e[102m  \e[0m or capture \e[101m \u265F \e[0m.
 
   def how_to_play
     system 'clear'
@@ -80,19 +79,9 @@ module GamePrompts
     puts 'STEP 1: '.colorize(:magenta) + 'Select the coordinates of piece you wish to move.' + " eg. d2 \n".colorize(:cyan)
     puts 'STEP 2: '.colorize(:magenta) + "Enter coordinates of\e[92m valid move\e[0m:"
     puts "        square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m\n\n"
-
-    # "To go back to the Main Menu, press \e[4mM\e[0m"
-
+    puts "For more information on how to play chess, please view \e[94mHow To Play Chess.pdf\e[0m file.\n\n"
     sleep(5)
-  end
-
-  def repeat_game_choices
-    <<~HEREDOC
-
-      Would you like to start a New Game or Quit Game?
-      \e[96m[P]\e[0m to Play A New Game or \e[91m[Q] \e[0m to Quit
-
-    HEREDOC
+    return_to_menu
   end
 
   def game_end_message
@@ -141,22 +130,5 @@ module GamePrompts
 
   def previous_color
     @current_turn == :white ? 'Black' : 'White'
-  end
-
-  def resign_game
-    puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
-    @player_count = 0 # when player count is less than 1, ends game
-  end
-
-  def exit_program
-    puts 'Are you sure you want to Exit?'
-    @input == 'yes' ? quit_app : return_to_menu
-  end
-
-  def quit_app
-    system 'clear'
-    puts "Thank you for playing CLI Chess! \nHope you enjoyed this game!"
-    sleep(2)
-    exit
   end
 end

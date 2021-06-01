@@ -3,12 +3,13 @@
 require 'colorize'
 
 # creates the visual representation of the chess board from the board's data array
-module Printables
+module Printables 
   private
 
   # prints out chess board with file (letter) and rank (number) coordinates
   def print_chess_board
     system 'clear'
+    puts("|  \e[4mN\e[4mew Game   |     Save     |      Load      |      Quit      | \n\n")
     puts "\n    a  b  c  d  e  f  g  h".colorize(:cyan)
     print_board
     puts "    a  b  c  d  e  f  g  h \n".colorize(:cyan)

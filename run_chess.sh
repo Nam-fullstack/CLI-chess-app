@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Welcome to CLI Chess"
-echo "Initializing program..."
+echo "Starting program..."
 ruby lib/main.rb

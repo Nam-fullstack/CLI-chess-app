@@ -58,7 +58,7 @@ class Game
     @board = board
     @current_turn = current_turn
   end
-
+  
   def setup_board
     @board.update_mode if @player_count == 1
     @board.initial_placement
@@ -68,6 +68,19 @@ class Game
     @board.to_s
     player_turn until @board.game_over? || @player_count.zero?
     game_end_message
+  end
+
+  def menu_options(input)
+    case input.upcase
+    when 'N'
+      start_game(1)
+    when 'S'
+      save_game
+    when 'L'
+      load_game.play
+    when 'Q'
+      resign_game
+    end
   end
 
   def player_turn
@@ -133,8 +146,9 @@ class Game
     puts king_check_warning if @board.king_in_check?(@current_turn)
     input = user_input(user_piece_selection)
     validate_piece_input(input)
-    resign_game if input.upcase == 'Q'
-    save_game if input.upcase == 'S'
+    menu_options(input)
+    # resign_game if input.upcase == 'Q'
+    # save_game if input.upcase == 'S'
     input
   end
 
@@ -143,7 +157,8 @@ class Game
     puts castling_warning if @board.possible_castling?
     input = user_input(user_move_selection)
     validate_move_input(input)
-    resign_game if input.upcase == 'Q'
+    menu_options(input)
+    # resign_game if input.upcase == 'Q'
     input
   end
 
@@ -160,11 +175,11 @@ class Game
   end
 
   def validate_piece_input(input)
-    raise InputError unless input.match?(/^[a-h][1-8]$|^q$|^s$/i)
+    raise InputError unless input.match?(/^[a-h][1-8]$|^[n, s, l, q]$/i)
   end
 
   def validate_move_input(input)
-    raise InputError unless input.match?(/^[a-h][1-8]$/i)
+    raise InputError unless input.match?(/^[a-h][1-8]$|^[n, s, l, q]$/i)
   end
 
   def validate_piece_coordinates(coordinates)
