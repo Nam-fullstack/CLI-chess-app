@@ -1,4 +1,4 @@
-if ARGV.length > 0
+if ARGV.!empty?
     flag, *rest = ARGV
     ARGV.clear
     case flag
@@ -12,10 +12,10 @@ if ARGV.length > 0
         puts "Please select game you wish to load"
     when '-path'
         puts ""
-    else 
+    else
         puts "Invalid argument, please see readme for options"
         exit
     end
-    
+
 
 end
