@@ -39,7 +39,7 @@ def play_game(selection)
 end
 
 def start_game(players)
-  loading(0.2, 15)
+  loading(0.1, 5)
   player = Game.new(players)
   player.setup_board
   player.play
