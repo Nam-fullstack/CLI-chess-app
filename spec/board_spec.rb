@@ -20,7 +20,7 @@ RSpec.describe Board do
       board.initial_placement
     end
 
-    it 'has bottom row (1st rank) of white pieces' do
+    it 'has bottom row (1st Rank) of white pieces' do
       expect(board.data[7].all? { |piece| piece.color == :white }).to be true
     end
 
@@ -36,67 +36,67 @@ RSpec.describe Board do
       expect(board.data[0].all? { |piece| piece.color == :black }).to be true
     end
 
-    it 'has 1st rank queen side Rook' do
+    it 'has 1st Rank queen side Rook in correct position' do
       expect(board.data[7][0].instance_of?(Rook)).to be true
     end
 
-    it 'has 1st rank queen side Knight' do
+    it 'has 1st Rank queen side Knight in correct position' do
       expect(board.data[7][1].instance_of?(Knight)).to be true
     end
 
-    it 'has 1st rank queen side Bishop' do
+    it 'has 1st Rank queen side Bishop in correct position' do
       expect(board.data[7][2].instance_of?(Bishop)).to be true
     end
 
-    it 'has 1st rank Queen' do
+    it 'has 1st Rank Queen in correct position' do
       expect(board.data[7][3].instance_of?(Queen)).to be true
     end
 
-    it 'has 1st rank King' do
+    it 'has 1st Rank King in correct position' do
       expect(board.data[7][4].instance_of?(King)).to be true
     end
 
-    it 'has 1st rank king side Bishop' do
+    it 'has 1st Rank king side Bishop in correct position' do
       expect(board.data[7][5].instance_of?(Bishop)).to be true
     end
 
-    it 'has 1st rank king side Knight' do
+    it 'has 1st Rank king side Knight in correct position' do
       expect(board.data[7][6].instance_of?(Knight)).to be true
     end
 
-    it 'has 1st rank king side Rook' do
+    it 'has 1st Rank king side Rook in correct position' do
       expect(board.data[7][7].instance_of?(Rook)).to be true
     end
 
-    it 'has 8th rank queen side Rook' do
+    it 'has 8th Rank queen side Rook in correct position' do
       expect(board.data[0][0].instance_of?(Rook)).to be true
     end
 
-    it 'has 8th rank queen side Knight' do
+    it 'has 8th Rank queen side Knight in correct position' do
       expect(board.data[0][1].instance_of?(Knight)).to be true
     end
 
-    it 'has 8th rank queen side Bishop' do
+    it 'has 8th Rank queen side Bishop in correct position' do
       expect(board.data[0][2].instance_of?(Bishop)).to be true
     end
 
-    it 'has 8th rank Queen' do
+    it 'has 8th Rank Queen in correct position' do
       expect(board.data[0][3].instance_of?(Queen)).to be true
     end
 
-    it 'has 8th rank King' do
+    it 'has 8th Rank King in correct position' do
       expect(board.data[0][4].instance_of?(King)).to be true
     end
 
-    it 'has 8th rank king side Bishop' do
+    it 'has 8th Rank king side Bishop in correct position' do
       expect(board.data[0][5].instance_of?(Bishop)).to be true
     end
 
-    it 'has 8th rank king side Knight' do
+    it 'has 8th Rank king side Knight in correct position' do
       expect(board.data[0][6].instance_of?(Knight)).to be true
     end
 
-    it 'has 8th rank king side Rook' do
+    it 'has 8th Rank king side Rook in correct position' do
       expect(board.data[0][7].instance_of?(Rook)).to be true
     end
 

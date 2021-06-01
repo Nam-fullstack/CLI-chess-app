@@ -52,6 +52,16 @@ RSpec.describe Serializer do
         allow(dummy_class).to receive(:find_saved_file)
         allow(Marshal).to receive(:load)
       end
+
+      it 'opens a file' do
+        expect(File).to  receive(:open)
+        dummy_class.load_game
+      end
+
+      it 'loads the file' do
+        expect(Marshal).to receive(:load)
+        dummy_class.load_game
+      end
     end
   end
 end
