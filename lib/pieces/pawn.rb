@@ -27,9 +27,9 @@ class Pawn < Piece
     def find_possible_captures(board)
         file = @location[1]
         [
-            basic_capture(board, file - 1),
-            basic_capture(board, file + 1),
-            en_passant_capture(board)
+          basic_capture(board, file - 1),
+          basic_capture(board, file + 1),
+          en_passant_capture(board)
         ].compact
     end
 
@@ -72,7 +72,7 @@ class Pawn < Piece
     end
 
     # defines en passant capture mechanics: 
-    # 1) has to be adjacent file, only when it is, 
+    # 1) has to be adjacent file, only when it is,
     # 2) determine if it's a valid en passant capture
     def en_passant_capture(board)
         capture = board.previous_piece&.location
@@ -89,7 +89,7 @@ class Pawn < Piece
         @en_passant = (row - location[0]).abs == 2
     end
 
-    # NEED TO CHECK THIS, but think logic should be right, piece that moved previously has to be a pawn that has 
+    # NEED TO CHECK THIS, but think logic should be right, piece that moved previously has to be a pawn that has
     # done a double advance and consequently, have en passant as true. Capturing pawn has to be in the correct rank for color
     # AND also need to check if en passant move and capture will not leave the King in check (legal_en_passant).
     def valid_en_passant?(board)

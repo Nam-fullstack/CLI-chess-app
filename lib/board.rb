@@ -3,13 +3,14 @@
 require_relative 'printables'
 require 'observer'
 
+# logic for chess board
 class Board
     include Printables
     include Observable
     attr_reader :mode, :white_king, :black_king
-    attr_accessor :data, :active_piece, :previous_piece 
+    attr_accessor :data, :active_piece, :previous_piece
 
-    def initialize(data = Array.new(8) { Array.new(8) }, parameters = {} )
+    def initialize(data = Array.new(8) { Array.new(8) }, parameters = {})
         @mode = parameters[:mode]
         @data = data
         @active_piece = parameters[:active_piece]
@@ -35,7 +36,7 @@ class Board
     def active_piece_moveable?
         @active_piece.moves.size >= 1 || @active_piece.captures.size >= 1
     end
-    
+
     def valid_piece?(coordinates, color)
         piece = @data[coordinates[:row]][coordinates[:column]]
         piece&.color == color
@@ -84,6 +85,7 @@ class Board
         pieces = @data.flatten(1).compact
         pieces.any? do |piece|
             next unless piece.color != king.color
+
             piece.captures.include?(king.location)
         end
     end
@@ -97,6 +99,7 @@ class Board
         pieces = @data.flatten(1).compact
         black_pieces = pieces.select do |piece|
             next unless piece.color == :black
+
             piece.moves.size.positive? || piece.captures.size.positive?
         end
         location = black_pieces.sample.location
@@ -118,6 +121,7 @@ class Board
     # if King is in check or not determines if game is Stalemate or Checkmate
     def game_over?
         return false unless @previous_piece
+
         previous_color = @previous_piece.color == :white ? :black : :white
         no_legal_moves_captures?(previous_color)
     end
@@ -137,16 +141,16 @@ class Board
 
     def initial_row(color, rank)
         @data[rank] = [
-            Rook.new(self, { color: color, location: [rank, 0] }),
-            Knight.new(self, { color: color, location: [rank, 1] }),
-            Bishop.new(self, { color: color, location: [rank, 2] }),
-            Queen.new(self, { color: color, location: [rank, 3] }),
-            King.new(self, { color: color, location: [rank, 4] }),
-            Bishop.new(self, { color: color, location: [rank, 5] }),
-            Knight.new(self, { color: color, location: [rank, 6] }),
-            Rook.new(self, { color: color, location: [rank, 7] })
+          Rook.new(self, { color: color, location: [rank, 0] }),
+          Knight.new(self, { color: color, location: [rank, 1] }),
+          Bishop.new(self, { color: color, location: [rank, 2] }),
+          Queen.new(self, { color: color, location: [rank, 3] }),
+          King.new(self, { color: color, location: [rank, 4] }),
+          Bishop.new(self, { color: color, location: [rank, 5] }),
+          Knight.new(self, { color: color, location: [rank, 6] }),
+          Rook.new(self, { color: color, location: [rank, 7] })
         ]
-    end # close initial_row
+    end
 
     def update_all_moves_captures
         pieces = @data.flatten(1).compact
@@ -160,10 +164,10 @@ class Board
     def en_passant_pawn?
         two_pawns? && @active_piece.en_passant_rank? && @previous_piece.en_passant
     end
-    
+
     # checks if the previous piece moved was a pawn and current piece being moved is also a pawn
     def two_pawns?
-        @previous_piece.symbol == " \u265F " && @active_piece.symbol == " \u265F " 
+        @previous_piece.symbol == " \u265F " && @active_piece.symbol == " \u265F "
     end
 
     def pawn_promotion?(coordinates)
@@ -193,6 +197,7 @@ class Board
         pieces = @data.flatten(1).compact
         pieces.none? do |piece|
             next unless piece.color == color
+
             piece.moves.size.positive? || piece.captures.size.positive?
         end
     end

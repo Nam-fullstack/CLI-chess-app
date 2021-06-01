@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # logic for basic moves for all pieces
-# when a piece moves, have to update it's location at the new coordinates and also remove the piece from the original location.
+# when a piece moves, have to update it's location at the new coordinates
+# and also remove the piece from the original location.
 # when a piece is captured, must remove (delete) it as an observer.
 # also need to update active piece location to indicate last move.
 class BasicMovement
@@ -26,7 +27,7 @@ class BasicMovement
         remove_original_piece
         update_active_piece_location
     end
-    
+
     def remove_capture_piece_observer
         @board.delete_observer(@board.data[row][column])
     end

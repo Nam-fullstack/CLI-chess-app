@@ -81,7 +81,7 @@ class King < Piece
         board.data[rank][file].nil? && safe_passage?(board, [rank, file])
     end
 
-    # finds possible moves for opposing color, determines if King's location (passed in) 
+    # finds possible moves for opposing color, determines if King's location (passed in)
     # is included in any of those possible moves
     def safe_passage?(board, location)
         pieces = board.data.flatten(1).compact

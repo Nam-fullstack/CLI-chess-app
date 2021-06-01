@@ -16,7 +16,6 @@ RSpec.describe Board do
     subject(:board) { described_class.new }
 
     describe '#initial_placement' do
-
         before do
             board.initial_placement
         end
@@ -110,4 +109,3 @@ RSpec.describe Board do
         end
     end
 end
-

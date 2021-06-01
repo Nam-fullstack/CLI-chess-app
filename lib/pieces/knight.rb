@@ -17,7 +17,7 @@ class Knight < Piece
             rank = @location[0] + move [0]
             file = @location[1] + move [1]
             next unless valid_location?(rank, file)
-            
+
             possible_moves << [rank, file] unless board.data[rank][file]
         end
         possible_moves

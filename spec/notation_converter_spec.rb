@@ -42,7 +42,7 @@ RSpec.describe NotationConverter do
             it 'returns row: 4 column: 4' do
                 user_input = 'e4'
                 result = translator.translate_notation(user_input)
-                expect(result).to eq({ row: 4, column: 4 }) 
+                expect(result).to eq({ row: 4, column: 4 })
             end
         end
     
@@ -50,7 +50,7 @@ RSpec.describe NotationConverter do
             it 'returns row: 5 column: 5' do
                 user_input = 'f3'
                 result = translator.translate_notation(user_input)
-                expect(result).to eq({ row: 5, column: 5 }) 
+                expect(result).to eq({ row: 5, column: 5 })
             end
         end
 
