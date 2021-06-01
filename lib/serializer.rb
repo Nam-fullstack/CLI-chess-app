@@ -52,7 +52,7 @@ module Serializer
         return file_number if file_number.to_i.between?(1, number)
 
         puts "\e[91mInput Error!\e[0m Please enter a valid file number."
-        select_saved_game(number) 
+        select_saved_game(number)
     end
 
     def create_game_list
