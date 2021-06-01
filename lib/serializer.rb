@@ -32,7 +32,7 @@ module Serializer
         saved_games = create_game_list
         if saved_games.empty?
             puts "There are no saved games to play yet!"
-            exit
+            exit        # RETURN TO MENU????
         else
             print_saved_games(saved_games)
             file_number = select_saved_game(saved_games.size)

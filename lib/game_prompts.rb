@@ -129,9 +129,9 @@ module GamePrompts
     end
 
     def en_passant_warning
-        puts "\n\n\e[96mYou have the option to capture the opposing pawn that just moved.\e[0m" 
-        puts "\e[91mTo capture this pawn en passant\e[0m (in passing), please enter the \e[41mhighlighted coordinates\e[0m."
-        puts "As part of en passant, your\e[96m pawn will be moved to the square in front of the captured pawn\e[0m."
+        puts "\e[96mPossibility to capture the opposing pawn that just moved.\e[0m" 
+        puts "\e[91mTo capture this pawn en passant\e[0m (in passing),\nplease enter the \e[41mhighlighted coordinates\e[0m."
+        puts "As part of en passant, your\e[96m pawn will be moved \nto the square in front of the captured pawn\e[0m."
     end
 
     def king_check_warning
@@ -139,8 +139,8 @@ module GamePrompts
     end
 
     def castling_warning
-        puts "\e[96mYou have the option to castle: \e[0m \n\e[95mYour \u2654 King will move 2 spaces\e[0m and will castle with the rook."
-        puts "As part of castling your \e[96m\u2656 Rook will be moved to the square that the king passes through\e[0m."
+        puts "\e[96mYou have the option to castle: \e[0m \n\e[95mYour \u2654 King will move 2 spaces\e[0m \nand will castle with the rook."
+        puts "As part of castling, your \e[96m\u2656 Rook will be moved \nto the square that the king passes through\e[0m."
     end
 
     def previous_color
@@ -153,13 +153,13 @@ module GamePrompts
     end
 
     def exit_program
-        input = puts "Are you sure you want to Exit?"
+        puts "Are you sure you want to Exit?    'yes' to quit"
         input == "yes" ? quit_app : return_to_menu
     end
     
     def quit_app
         system 'clear'
-        puts "Thank you for playing CLI Chess! Hope you enjoyed this game!"
+        puts "Thank you for playing CLI Chess! \nHope you enjoyed this game!"
         sleep(2)
         exit
     end

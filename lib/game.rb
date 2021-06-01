@@ -95,9 +95,9 @@ class Game
         validate_piece_coordinates(coordinates)
         @board.update_active_piece(coordinates)
         validate_active_piece
-    # rescue StandardError => e
-    #     puts e.message
-    #     retry
+    rescue StandardError => e
+        puts e.message
+        retry
     end
 
     def select_move_coordinates
@@ -105,9 +105,9 @@ class Game
         coordinates = translate_coordinates(input)
         validate_move(coordinates)
         coordinates
-    # rescue StandardError => e
-    #     puts e.message
-    #     retry
+    rescue StandardError => e
+        puts e.message
+        retry
     end
 
     def user_select_piece
