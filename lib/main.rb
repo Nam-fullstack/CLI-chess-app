@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'tty-prompt'
-require 'tty-progressbar'
-
 require_relative 'board'
 require_relative 'printables'
 require_relative 'game'
@@ -42,13 +39,15 @@ def play_game(selection)
 end
 
 def start_game(players)
+  loading(2)
   player = Game.new(players)
   player.setup_board
   player.play
 end
 
+loading(2)
+
 loop do
   select_game_mode
   play_game(@mode)
-  break if @mode == 5
 end

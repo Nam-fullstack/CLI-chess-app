@@ -1,9 +1,21 @@
 # frozen_string_literal: true
 
 require 'colorize'
+require 'tty-prompt'
+require 'tty-progressbar'
 
 # contains text prompts for chess game
 module GamePrompts
+
+  def loading(time)
+    puts "\n\n"
+    bar = TTY::ProgressBar.new("LOADING [:bar] :percent", bar_format: :tread, total: 50, width: 70)
+    50.times do
+        sleep(0.045)
+        bar.advance
+    end
+    pausing(time)
+  end
   def select_game_mode
     prompt = TTY::Prompt.new
     options = {
@@ -16,12 +28,50 @@ module GamePrompts
     @mode = prompt.select("MAIN MENU", options, convert: :integer)
   end
 
+#   def loading(time)
+#     bar = TTY::ProgressBar.new("Loading [:bar] :percent", total: 100)
+#     pausing(time)
+#   end
+
   def return_to_menu
     prompt = TTY::Prompt.new
     choice = promopt.select('Do you want to go back to the Main Menu?', ['Yes', 'Quit'])
     if choice == 'quit'
         exit_program
     end
+  end
+
+  def resign_game
+    prompt = TTY::Prompt.new
+    resign = prompt.select('Are you sure you want to resign?', 'Yes', 'No')
+    if resign == 'Yes'
+      puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
+      pausing(2.4)
+      @player_count = 0 # when player count is less than 1, ends game
+    else
+      play
+    end
+  end
+
+  def exit_program
+    prompt = TTY::Prompt.new
+    final_choice = prompt.select('Are you sure you want to Exit?', 'Yes', 'No')
+    if final_choice == 'Yes' 
+      pausing(0.5)
+      quit_app
+    end
+  end
+
+  def quit_app
+    system 'clear'
+    puts "Thank you for playing CLI Chess! \nHope you enjoyed this game!"
+    sleep(1)
+    exit
+  end
+
+  def pausing(time)
+    sleep(time)
+    system 'clear'
   end
 
   private
@@ -33,7 +83,7 @@ module GamePrompts
     puts 'STEP 1: '.colorize(:magenta) + 'Select the coordinates of piece you wish to move.' + " eg. d2 \n".colorize(:cyan)
     puts 'STEP 2: '.colorize(:magenta) + "Enter coordinates of\e[92m valid move\e[0m:"
     puts "        square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m\n\n"
-    puts "For more information on how to play chess, please view How To Play Chess.pdf file."
+    puts "For more information on how to play chess, please view \e[94mHow To Play Chess.pdf\e[0m] file.\n\n"
     sleep(5)
   end
 
@@ -83,26 +133,5 @@ module GamePrompts
 
   def previous_color
     @current_turn == :white ? 'Black' : 'White'
-  end
-
-  def resign_game
-    puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
-    @player_count = 0 # when player count is less than 1, ends game
-  end
-
-  def exit_program
-    prompt = TTY::Prompt.new
-    final_choice = prompt.yes?('Are you sure you want to Exit?', convert: :boolean)
-    if final_choice 
-      sleep(1)
-      quit_app
-    end
-  end
-
-  def quit_app
-    system 'clear'
-    puts "Thank you for playing CLI Chess! \nHope you enjoyed this game!"
-    sleep(2)
-    exit
   end
 end
