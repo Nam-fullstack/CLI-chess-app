@@ -88,10 +88,10 @@ class Pawn < Piece
     # consequently, have en passant as true. Capturing pawn has to be in the correct rank for color
     # AND also need to check if en passant move and capture will not leave the King in check (legal_en_passant). 
     def valid_en_passant?(board)
-        en_passant_rank? && 
-            symbol == board.previous_piece.symbol && 
-            board.previous_piece.en_passant && 
-            legal_en_passant_move?(board)
+        en_passant_rank? &&
+          symbol == board.previous_piece.symbol &&
+          board.previous_piece.en_passant &&
+          legal_en_passant_move?(board)
     end
 
     # checks if en passant move will leave King in check
@@ -107,7 +107,7 @@ class Pawn < Piece
         temp_board = Marshal.load(Marshal.dump(board))
         temp_board.data[pawn_location[0]][pawn_location[1]] = nil
         temp_board
-    end   
+    end
 
     def move_mechanics; end
 end

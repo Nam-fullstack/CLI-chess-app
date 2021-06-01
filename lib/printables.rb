@@ -2,6 +2,7 @@
 
 require 'colorize'
 
+# creates the visual representation of the chess board from the board's data array
 module Printables
     private
     
@@ -14,7 +15,7 @@ module Printables
     end
 
     # iterates through each row of the board and adds rank. In chess, the rows
-    # go from 1-8, starting from the bottom. 
+    # go from 1-8, starting from the bottom.
     def print_board
         @data.each_with_index do |row, index|
             print " #{8 - index} ".colorize(:cyan)
@@ -76,7 +77,8 @@ module Printables
         end
     end
 
-    # prints the final box/square with the specified text color, background/highlight color, and string (in this case, ascii chess symbol)
+    # prints the final box/square with the specified text color, background/highlight color, 
+    # and string (in this case, ascii chess symbol)
     def color_box(text_color, background, string)
         print "\e[#{text_color};#{background}m#{string}\e[0m"
     end

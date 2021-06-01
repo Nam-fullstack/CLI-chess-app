@@ -3,7 +3,6 @@
 require 'tty-prompt'
 require 'tty-progressbar'
 
-
 require_relative 'board'
 require_relative 'printables'
 require_relative 'game'
@@ -28,7 +27,7 @@ extend GamePrompts
 extend Serializer
 
 def play_game(input)
-    case(input)
+    case (input)
     when 1
         single_player = Game.new(1)
         single_player.setup_board
@@ -43,7 +42,7 @@ def play_game(input)
         how_to_play
     when 5
         exit_program
-    end    
+    end
 end
 
 loop do
@@ -51,11 +50,3 @@ loop do
     play_game(@mode)
     break if @mode == 5
 end
-
-
-# loop do
-#     puts game_mode_choices
-#     mode = select_game_mode
-#     play_game(mode)
-#     break if repeat_game == :Quit
-# end

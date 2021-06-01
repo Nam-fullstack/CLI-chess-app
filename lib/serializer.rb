@@ -10,9 +10,9 @@ module Serializer
         end
         puts "Game was saved as \e[96m#{filename}\e[0m\n"
         @player_count = 0
-    rescue SystemCallError => e
+    rescue SystemError => e
         puts "\e[91mError while writing to file #{filename}.\e[0m"
-
+        puts e
     end
 
     def create_filename
@@ -31,7 +31,7 @@ module Serializer
     def find_saved_file
         saved_games = create_game_list
         if saved_games.empty?
-            puts "There are no saved games to play yet!"
+            puts 'There are no saved games to play yet!'
             exit        # RETURN TO MENU????
         else
             print_saved_games(saved_games)
@@ -50,6 +50,7 @@ module Serializer
     def select_saved_game(number)
         file_number = gets.strip
         return file_number if file_number.to_i.between?(1, number)
+
         puts "\e[91mInput Error!\e[0m Please enter a valid file number."
         select_saved_game(number) 
     end
@@ -57,6 +58,7 @@ module Serializer
     def create_game_list
         game_list = []
         return game_list unless Dir.exist? 'saved_games'
+
         Dir.entries('saved_games').each do |name|
             game_list << name if name.match(/(Chess)/)
         end

@@ -66,7 +66,7 @@ RSpec.describe NotationConverter do
             it 'returns row: 7 column: 7' do
                 user_input = 'h1'
                 result = translator.translate_notation(user_input)
-                expect(result).to eq({ row: 7, column: 7 }) 
+                expect(result).to eq({ row: 7, column: 7 })
             end
         end
     end
