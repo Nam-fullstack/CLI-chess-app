@@ -23,8 +23,8 @@ require_relative 'movement/en_passant_movement'
 require_relative 'movement/castling_movement'
 require_relative 'movement/promotion_movement'
 
-# extend GamePrompts
-# extend Serializer
+extend GamePrompts
+extend Serializer
 
 def play_game(input)
   case input

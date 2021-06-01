@@ -6,7 +6,7 @@ require 'colorize'
 module GamePrompts
   def select_game_mode
     prompt = TTY::Prompt.new
-    menu_select = prompt.select('MENU',
+    menu_select = prompt.select('MAIN MENU',
                                 ['1 - Single Player',
                                  '2 - Two Player',
                                  '3 - Load Game',
@@ -75,10 +75,11 @@ module GamePrompts
 
   def how_to_play
     system 'clear'
-    puts "HOW TO PLAY \n\n".colorize(:yellow)
-    puts "Player's turn will comprise of 2 steps. \n".colorize(:cyan)
+    puts "HOW TO PLAY \n".colorize(:yellow)
+    puts "Each player's turn will comprise of 2 steps. \n".colorize(:cyan)
     puts 'STEP 1: '.colorize(:magenta) + 'Select the coordinates of piece you wish to move.' + " eg. d2 \n".colorize(:cyan)
-    puts 'STEP 2: '.colorize(:magenta) + "Enter coordinates of valid move: square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m\n\n"
+    puts 'STEP 2: '.colorize(:magenta) + "Enter coordinates of\e[92m valid move\e[0m:"
+    puts "        square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m\n\n"
 
     # "To go back to the Main Menu, press \e[4mM\e[0m"
 
@@ -116,13 +117,13 @@ module GamePrompts
     <<~HEREDOC
 
       Please enter coordinates for a legal move:
-      square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m.#{' '}
+      square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m.
 
     HEREDOC
   end
 
   def en_passant_warning
-    puts "\e[96mPossibility to capture the opposing pawn that just moved.\e[0m"
+    puts "\e[96mOption to capture the opposing pawn that just moved.\e[0m\n"
     puts "\e[91mTo capture this pawn en passant\e[0m (in passing),"
     puts "please enter the \e[41mhighlighted coordinates\e[0m."
     puts "As part of en passant, your\e[96m pawn will be moved"
@@ -130,12 +131,12 @@ module GamePrompts
   end
 
   def king_check_warning
-    puts "\e[91mWARNING!\e[0m Your \u2654 King is currently in \e[91mcheck!\e[0m"
+    puts "\n\e[91mWARNING!\e[0m Your \u2654 King is currently in \e[91mcheck!\e[0m"
   end
 
   def castling_warning
-    puts "\e[96mYou have the option to castle: \e[0m \n\e[95mYour \u2654 King will move 2 spaces\e[0m \nand will castle with the rook."
-    puts "As part of castling, your \e[96m\u2656 Rook will be moved \nto the square that the king passes through\e[0m."
+    puts "\e[96mYou have the option to castle: \e[0m \n\n\e[95mYour King \u2654 will move 2 spaces\e[0m \nand will castle with the rook."
+    puts "Your\e[96m Rook \u2656 will be moved\e[0m to the \nsquare that the king passes through."
   end
 
   def previous_color
@@ -144,12 +145,12 @@ module GamePrompts
 
   def resign_game
     puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
-    @player_count = 0    # since player count is less than 1, ends game
+    @player_count = 0 # when player count is less than 1, ends game
   end
 
   def exit_program
-    puts "Are you sure you want to Exit?    'yes' to quit"
-    input == 'yes' ? quit_app : return_to_menu
+    puts 'Are you sure you want to Exit?'
+    @input == 'yes' ? quit_app : return_to_menu
   end
 
   def quit_app

@@ -10,9 +10,11 @@ class Game
   # declares an error message when user enters an invalid input
   class InputError < StandardError
     def message
-      "\e[91mInvalid input!\e[0m
-            \nPlease enter a \e[94mletter\e[0m between a-h and \e[94mnumber\e[0m between 1-8.
-            \n\e[94m eg: d2\e[0m"
+      <<~HEREDOC
+        \e[91mInvalid input!\e[0m
+        Please enter a \e[94mletter\e[0m [a-h]and\e[94m number\e[0m [1-8].
+        \e[94m eg: d2\e[0m
+      HEREDOC
     end
   end
 
@@ -20,25 +22,31 @@ class Game
   # i.e. opponent's pieces or empty square
   class CoordinatesError < StandardError
     def message
-      "\e[91mInvalid coordinates!\e[0m
-            \nPlease enter file and rank of a piece that is \e[94myour color\e[0m."
+      <<~HEREDOC
+        \e[91mInvalid coordinates!\e[0m
+        Please enter file and rank of a piece that is \e[94myour color\e[0m.
+      HEREDOC
     end
   end
 
   # declares an error message when user enters invalid coordinates for move
   class MoveError < StandardError
     def message
-      "\e[91mInvalid move!\e[0m
-            \nPlease enter file and rank of a \e[92mvalid move\e[0m for this piece."
+      <<~HEREDOC
+        \e[91mInvalid move!\e[0m
+        Please enter file and rank of a \e[92mvalid move\e[0m.
+      HEREDOC
     end
   end
 
   # declares an error message when user selects a piece with no legal moves
   class PieceError < StandardError
     def message
-      "There are\e[91m no legal moves\e[0m for this piece and/or
-            \n\e[91mKing is under check\e[0m.
-            \nPlease \e[94mselect another piece to move."
+      <<~HEREDOC
+        There are\e[91m no legal moves\e[0m for this piece and/or
+        \e[91mKing is under check\e[0m.
+        Please \e[94mselect another piece to move.
+      HEREDOC
     end
   end
 

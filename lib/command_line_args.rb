@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ARGV.!empty?
   flag, *rest = ARGV
   ARGV.clear

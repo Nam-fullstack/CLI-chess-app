@@ -90,7 +90,8 @@ class Pawn < Piece
   end
 
   # NEED TO CHECK THIS, but think logic should be right, piece that moved previously has to be a pawn that has
-  # done a double advance and consequently, have en passant as true. Capturing pawn has to be in the correct rank for color
+  # done a double advance and consequently, have en passant as true. 
+  # Capturing pawn has to be in the correct rank for color
   # AND also need to check if en passant move and capture will not leave the King in check (legal_en_passant).
   def valid_en_passant?(board)
     en_passant_rank? &&
