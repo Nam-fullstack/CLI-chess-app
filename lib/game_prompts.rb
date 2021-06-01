@@ -44,11 +44,17 @@ module GamePrompts
       puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
       pausing(2.4)
       @player_count = 0 # when player count is less than 1, ends game
-      puts "player count: #{@player_count}   huh?"
-      sleep(5)
-      play
+      play_again
     else
       play
+    end
+  end
+
+  def play_again
+    prompt = TTY::Prompt.new
+    again = prompt.select('Do you wish to play again?', 'Yes', 'No')
+    if again == 'No'
+      exit_program
     end
   end
 
@@ -95,6 +101,7 @@ module GamePrompts
     else
       puts "\nSTALEMATE! Game is a draw.\n\n".colorize(:cyan)
     end
+    play
   end
 
   def user_piece_selection

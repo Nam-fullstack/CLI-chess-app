@@ -9,7 +9,7 @@ module Printables
   # prints out chess board with file (letter) and rank (number) coordinates
   def print_chess_board
     system 'clear'
-    puts("|  \e[4;91mN\e[0mew Game   |     \e[4;91mS\e[0mave     |      \e[4;91mL\e[0moad      |      \e[4;91mQ\e[0muit      | \n\n")
+    puts("|   \e[4;91mN\e[0mew Game   |     \e[4;91mS\e[0mave     |      \e[4;91mL\e[0moad      |      \e[4;91mQ\e[0muit      | \n\n")
     puts "\n    a  b  c  d  e  f  g  h".colorize(:cyan)
     print_board
     puts "    a  b  c  d  e  f  g  h \n".colorize(:cyan)

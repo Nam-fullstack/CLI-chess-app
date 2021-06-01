@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'command_line_args'
+require_relative 'landing_banner'
 require_relative 'board'
 require_relative 'printables'
 require_relative 'game'
@@ -47,6 +48,7 @@ def start_game(players)
 end
 
 loading(2, 50)
+display_ansi
 
 loop do
   select_game_mode
