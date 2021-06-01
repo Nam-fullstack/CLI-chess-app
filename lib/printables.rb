@@ -5,7 +5,7 @@ require 'colorize'
 # creates the visual representation of the chess board from the board's data array
 module Printables
     private
-    
+
     # prints out chess board with file (letter) and rank (number) coordinates
     def print_chess_board
         system 'clear'
@@ -77,7 +77,7 @@ module Printables
         end
     end
 
-    # prints the final box/square with the specified text color, background/highlight color, 
+    # prints the final box/square with the specified text color, background/highlight color,
     # and string (in this case, ascii chess symbol)
     def color_box(text_color, background, string)
         print "\e[#{text_color};#{background}m#{string}\e[0m"
