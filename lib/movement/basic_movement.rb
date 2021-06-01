@@ -6,42 +6,42 @@
 # when a piece is captured, must remove (delete) it as an observer.
 # also need to update active piece location to indicate last move.
 class BasicMovement
-    attr_reader :row, :column, :board
+  attr_reader :row, :column, :board
 
-    def initialize(board = nil, row = nil, column = nil)
-        @board = board
-        @row = row
-        @column = column
-    end
+  def initialize(board = nil, row = nil, column = nil)
+    @board = board
+    @row = row
+    @column = column
+  end
 
-    def update_pieces(board, coordinates)
-        @board = board
-        @row = coordinates[:row]
-        @column = coordinates[:column]
-        update_basic_moves
-    end
+  def update_pieces(board, coordinates)
+    @board = board
+    @row = coordinates[:row]
+    @column = coordinates[:column]
+    update_basic_moves
+  end
 
-    def update_basic_moves
-        remove_capture_piece_observer if @board.data[row][column]
-        update_new_coordinates
-        remove_original_piece
-        update_active_piece_location
-    end
+  def update_basic_moves
+    remove_capture_piece_observer if @board.data[row][column]
+    update_new_coordinates
+    remove_original_piece
+    update_active_piece_location
+  end
 
-    def remove_capture_piece_observer
-        @board.delete_observer(@board.data[row][column])
-    end
+  def remove_capture_piece_observer
+    @board.delete_observer(@board.data[row][column])
+  end
 
-    def update_new_coordinates
-        @board.data[row][column] = @board.active_piece
-    end
+  def update_new_coordinates
+    @board.data[row][column] = @board.active_piece
+  end
 
-    def remove_original_piece
-        location = @board.active_piece.location
-        @board.data[location[0]][location[1]] = nil
-    end
+  def remove_original_piece
+    location = @board.active_piece.location
+    @board.data[location[0]][location[1]] = nil
+  end
 
-    def update_active_piece_location
-        @board.active_piece.update_location(row, column)
-    end
+  def update_active_piece_location
+    @board.active_piece.update_location(row, column)
+  end
 end

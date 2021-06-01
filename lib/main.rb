@@ -27,26 +27,26 @@ require_relative 'movement/promotion_movement'
 # extend Serializer
 
 def play_game(input)
-    case input
-    when 1
-        single_player = Game.new(1)
-        single_player.setup_board
-        single_player.play
-    when 2
-        two_payer = Game.new(2)
-        two_payer.setup_board
-        two_payer.play
-    when 3
-        load_game.play
-    when 4
-        how_to_play
-    when 5
-        exit_program
-    end
+  case input
+  when 1
+    single_player = Game.new(1)
+    single_player.setup_board
+    single_player.play
+  when 2
+    two_payer = Game.new(2)
+    two_payer.setup_board
+    two_payer.play
+  when 3
+    load_game.play
+  when 4
+    how_to_play
+  when 5
+    exit_program
+  end
 end
 
 loop do
-    select_game_mode
-    play_game(@mode)
-    break if @mode == 5
+  select_game_mode
+  play_game(@mode)
+  break if @mode == 5
 end
