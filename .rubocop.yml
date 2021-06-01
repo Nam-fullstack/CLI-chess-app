@@ -1,0 +1,20 @@
+AllCops:
+  Exclude:
+    - 'Gemfile'
+  NewCops: enable
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+Layout/LineLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'lib/game_prompts.rb'
+    - 'lib/move_validator.rb'
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/movement/pawn_promotion_movement.rb'
+    - 'lib/printables.rb'
+    - 'lib/main.rb'
+Security/MarshalLoad:
+  Exclude:
+    - 'lib/serializer.rb'
