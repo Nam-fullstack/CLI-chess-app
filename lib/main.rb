@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'command_line_args'
 require_relative 'board'
 require_relative 'printables'
 require_relative 'game'

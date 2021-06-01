@@ -9,7 +9,7 @@ class NotationConverter
 
   # returns the coordinates as a hash from the user's chess notation input: ie. d2  letter(column) and number(row)
   def translate_notation(letter_number)
-    coordinates = letter_number.chars # splits into each character
+    coordinates = letter_number.split(//) # splits into each character
     translate_row(coordinates[1])
     translate_column(coordinates[0])
     { row: @row, column: @column }

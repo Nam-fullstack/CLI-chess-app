@@ -44,6 +44,9 @@ module GamePrompts
       puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
       pausing(2.4)
       @player_count = 0 # when player count is less than 1, ends game
+      puts "player count: #{@player_count}   huh?"
+      sleep(5)
+      play
     else
       play
     end

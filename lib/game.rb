@@ -73,7 +73,11 @@ class Game
   def menu_options(input)
     case input.upcase
     when 'N'
-      start_game(1)
+      if @player_count == 2
+        start_game(2)
+      else
+        start_game(1)
+      end
     when 'S'
       save_game
     when 'L'
@@ -127,9 +131,9 @@ class Game
     validate_piece_coordinates(coordinates)
     @board.update_active_piece(coordinates)
     validate_active_piece
-  rescue StandardError => e
-    puts e.message
-    retry
+#   rescue StandardError => e
+#     puts e.message
+#     retry
   end
 
   def select_move_coordinates
@@ -137,9 +141,9 @@ class Game
     coordinates = translate_coordinates(input)
     validate_move(coordinates)
     coordinates
-  rescue StandardError => e
-    puts e.message
-    retry
+#   rescue StandardError => e
+#     puts e.message
+#     retry
   end
 
   def user_select_piece
@@ -147,8 +151,6 @@ class Game
     input = user_input(user_piece_selection)
     validate_piece_input(input)
     menu_options(input)
-    # resign_game if input.upcase == 'Q'
-    # save_game if input.upcase == 'S'
     input
   end
 
@@ -158,7 +160,6 @@ class Game
     input = user_input(user_move_selection)
     validate_move_input(input)
     menu_options(input)
-    # resign_game if input.upcase == 'Q'
     input
   end
 
@@ -175,11 +176,11 @@ class Game
   end
 
   def validate_piece_input(input)
-    raise InputError unless input.match?(/^[a-h][1-8]$|^[n, s, l, q]$/i)
+    raise InputError unless input.match?(/^[a-h][1-8]$|^[n,s,l,q]$/i)
   end
 
   def validate_move_input(input)
-    raise InputError unless input.match?(/^[a-h][1-8]$|^[n, s, l, q]$/i)
+    raise InputError unless input.match?(/^[a-h][1-8]$|^[n,s,l,q]$/i)
   end
 
   def validate_piece_coordinates(coordinates)
