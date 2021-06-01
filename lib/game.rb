@@ -5,32 +5,40 @@ require_relative 'serializer'
 # require_relative 'board'
 # require_relative 'notation_converter'
 
+# contains methods to play chess game
 class Game
     # declares an error message when user enters an invalid input
     class InputError < StandardError
         def message
-            "\e[91mInvalid input!\e[0m Please enter a \e[94mletter\e[0m between a-h and \e[94mnumber\e[0m between 1-8.\e[94m eg: d2\e[0m"
+            "\e[91mInvalid input!\e[0m
+            \nPlease enter a \e[94mletter\e[0m between a-h and \e[94mnumber\e[0m between 1-8.
+            \n\e[94m eg: d2\e[0m"
         end
     end
 
-    # declares an error message when user enters coordinates that aren't player's pieces, i.e. opponent's pieces or empty square
+    # declares an error message when user enters coordinates that aren't player's pieces, 
+    # i.e. opponent's pieces or empty square
     class CoordinatesError < StandardError
         def message
-            "\e[91mInvalid coordinates!\e[0m Please enter file and rank of a piece that is \e[94myour color\e[0m."
+            "\e[91mInvalid coordinates!\e[0m
+            \nPlease enter file and rank of a piece that is \e[94myour color\e[0m."
         end
     end
 
     # declares an error message when user enters invalid coordinates for move
     class MoveError < StandardError
         def message
-            "\e[91mInvalid move!\e[0m Please enter file and rank of a \e[92mvalid move\e[0m for this piece."
+            "\e[91mInvalid move!\e[0m
+            \nPlease enter file and rank of a \e[92mvalid move\e[0m for this piece."
         end
     end
 
     # declares an error message when user selects a piece with no legal moves
     class PieceError < StandardError
         def message
-            "There are\e[91m no legal moves\e[0m for this piece and/or \e[91mKing is under check\e[0m. \nPlease \e[94mselect another piece to move."
+            "There are\e[91m no legal moves\e[0m for this piece and/or
+            \n\e[91mKing is under check\e[0m.
+            \nPlease \e[94mselect another piece to move."
         end
     end
 
@@ -55,17 +63,18 @@ class Game
     end
 
     def player_turn
-        if @player_count == 1 && @current_turn == :black    
-            puts "Black to move:".upcase
+        if @player_count == 1 && @current_turn == :black
+            puts 'Black to move:'.upcase
             computer_player_turn
-        elsif @player_count == 2 && @current_turn == :black    
-            puts "Black to move:".upcase
+        elsif @player_count == 2 && @current_turn == :black
+            puts 'Black to move:'.upcase
             human_player_turn
         else
-            puts "White to move:".upcase
+            puts 'White to move:'.upcase
             human_player_turn
         end
         return unless @player_count.positive?
+
         @board.to_s
         switch_color
     end
@@ -73,6 +82,7 @@ class Game
     def human_player_turn
         select_piece_coordinates
         return unless @player_count.positive?
+
         @board.to_s
         move = select_move_coordinates
         @board.update(move)
@@ -91,6 +101,7 @@ class Game
     def select_piece_coordinates
         input = user_select_piece
         return unless @player_count.positive?
+
         coordinates = translate_coordinates(input)
         validate_piece_coordinates(coordinates)
         @board.update_active_piece(coordinates)
@@ -124,24 +135,24 @@ class Game
         puts castling_warning if @board.possible_castling?
         input = user_input(user_move_selection)
         validate_move_input(input)
-        resign_game if input.upcase == "Q"
+        resign_game if input.upcase == 'Q'
         input
     end
 
     def switch_color
         @current_turn = @current_turn == :white ? :black : :white
-    end 
+    end
 
     def computer_select_random_piece
         @board.random_black_piece
     end
-    
+
     def computer_select_random_move
         @board.random_black_move
     end
 
     def validate_piece_input(input)
-        raise InputError unless input.match?(/^[a-h][1-8]$|^[q]$|^[s]$/i)
+        raise InputError unless input.match?(/^[a-h][1-8]$|^q$|^s$/i)
     end
 
     def validate_move_input(input)
