@@ -26,16 +26,12 @@ require_relative 'movement/promotion_movement'
 extend GamePrompts
 extend Serializer
 
-def play_game(input)
-  case input
+def play_game(selection)
+  case selection
   when 1
-    single_player = Game.new(1)
-    single_player.setup_board
-    single_player.play
+    start_game(1)
   when 2
-    two_payer = Game.new(2)
-    two_payer.setup_board
-    two_payer.play
+    start_game(2)
   when 3
     load_game.play
   when 4
@@ -43,6 +39,12 @@ def play_game(input)
   when 5
     exit_program
   end
+end
+
+def start_game(players)
+  player = Game.new(players)
+  player.setup_board
+  player.play
 end
 
 loop do

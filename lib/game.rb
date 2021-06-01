@@ -59,6 +59,12 @@ class Game
     @current_turn = current_turn
   end
 
+  def start_game(players)
+    player = Game.new(players)
+    player.setup_board
+    player.play
+  end
+  
   def setup_board
     @board.update_mode if @player_count == 1
     @board.initial_placement
