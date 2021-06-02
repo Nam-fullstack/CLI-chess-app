@@ -132,7 +132,7 @@ class Game
     @board.update_active_piece(coordinates)
     validate_active_piece
   rescue StandardError => e
-    # puts e.message
+    puts e.message
     retry
   end
 
@@ -142,7 +142,7 @@ class Game
     validate_move(coordinates)
     coordinates
   rescue StandardError => e
-    # puts e.message
+    puts e.message
     retry
   end
 
