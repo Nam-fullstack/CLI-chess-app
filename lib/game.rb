@@ -176,11 +176,11 @@ class Game
   end
 
   def validate_piece_input(input)
-    raise InputError unless input.match?(/^[a-h][1-8]$|^[n,s,l,q]$/i)
+    raise InputError unless input.match?(/^[a-h][1-8]$|^[nslq]$/i)
   end
 
   def validate_move_input(input)
-    raise InputError unless input.match?(/^[a-h][1-8]$|^[n,s,l,q]$/i)
+    raise InputError unless input.match?(/^[a-h][1-8]$|^[nslq]$/i)
   end
 
   def validate_piece_coordinates(coordinates)

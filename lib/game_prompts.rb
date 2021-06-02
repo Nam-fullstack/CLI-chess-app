@@ -26,7 +26,7 @@ module GamePrompts
       "How to Play" => 4,
       "Exit" => 5
     }
-    @mode = prompt.select("MAIN MENU", options, convert: :integer)
+    @mode = prompt.select('MAIN MENU', options, convert: :integer)
   end
 
   def return_to_menu
@@ -66,7 +66,7 @@ module GamePrompts
     prompt = TTY::Prompt.new
     puts
     final_choice = prompt.select('Are you sure you want to Exit?', 'Yes', 'No')
-    if final_choice == 'Yes' 
+    return unless final_choice == 'Yes'
       pausing(0.5)
       quit_app
     end

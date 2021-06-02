@@ -48,13 +48,13 @@ def start_game(players)
 end
 
 loading(2, 50)
-# display_ansi
+display_ansi
 
 loop do
   begin
     select_game_mode
     play_game(@mode)
-  rescue => e
+    rescue
     puts e.message
   end
 end
