@@ -51,6 +51,10 @@ loading(2, 50)
 display_ansi
 
 loop do
-  select_game_mode
-  play_game(@mode)
+  begin
+    select_game_mode
+    play_game(@mode)
+    rescue
+    puts e.message
+  end
 end

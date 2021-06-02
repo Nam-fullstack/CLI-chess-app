@@ -15,7 +15,7 @@ if ARGV.length > 0
   when '--load', '-load', '-l'
     puts "This feature of the game allows you to load a previously saved game"
     puts "and resume where you left off. To \e[96m'Load'\e[0m a saved game, simply select"
-    puts "the \e[96mfile #\e[0m by typing in the corresponding \e[96mnumber\e[0m of the" 
+    puts "the \e[96mfile #\e[0m by typing in the corresponding \e[96mnumber\e[0m of the"
     puts "game you wish to load."
     exit
   when '--path', '-path', '-p'
@@ -27,7 +27,7 @@ if ARGV.length > 0
     exit
   else
     puts "\e[91mInvalid argument.\e[0m"
-    puts "For "
+    puts "For help, please type 'ruby main.rb -help' or ' ruby main.rb -h'"
     exit
   end
 end

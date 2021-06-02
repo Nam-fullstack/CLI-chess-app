@@ -26,7 +26,7 @@ module GamePrompts
       "How to Play" => 4,
       "Exit" => 5
     }
-    @mode = prompt.select("MAIN MENU", options, convert: :integer)
+    @mode = prompt.select('MAIN MENU', options, convert: :integer)
   end
 
   def return_to_menu
@@ -43,7 +43,7 @@ module GamePrompts
     if resign == 'Yes'
       puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
       pausing(2.4)
-      @player_count = 0 # when player count is less than 1, ends game
+    #   @player_count = 0 # when player count is less than 1, ends game
       play_again
     else
       play
@@ -53,15 +53,20 @@ module GamePrompts
   def play_again
     prompt = TTY::Prompt.new
     again = prompt.select('Do you wish to play again?', 'Yes', 'No')
-    if again == 'No'
+    if again == 'Yes'
+      select_game_mode
+      play_game(@mode)
+    #   start_game(@player_count)
+    elsif again == 'No'
       exit_program
     end
   end
 
   def exit_program
     prompt = TTY::Prompt.new
+    puts
     final_choice = prompt.select('Are you sure you want to Exit?', 'Yes', 'No')
-    if final_choice == 'Yes' 
+    return unless final_choice == 'Yes'
       pausing(0.5)
       quit_app
     end
@@ -89,6 +94,11 @@ module GamePrompts
     puts 'STEP 2: '.colorize(:magenta) + "Enter coordinates of\e[92m valid move\e[0m:"
     puts "        square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m\n\n"
     puts "For more information on how to play chess, please view \e[94mHow To Play Chess.pdf\e[0m file.\n\n"
+    puts "During a Game, you can do the following actions:\n"
+    puts "To \e[91mSave\e[0m current game, enter '\e[91mS\e[0m'."
+    puts "To \e[91mLoad\e[0m a game, enter '\e[91mL\e[0m'."
+    puts "To start a \e[94mNew Game\e[0m, enter '\e[91mN\e[0m'."
+    puts "To \e[91mQuit\e[0m a game, enter '\e[91mQ\e[0m'.\n\n"
     sleep(5)
     return_to_menu
   end
@@ -122,8 +132,8 @@ module GamePrompts
   end
 
   def en_passant_warning
-    puts "\e[96mOption to capture the opposing pawn that just moved.\e[0m\n"
-    puts "\e[91mTo capture this pawn en passant\e[0m (in passing),"
+    puts "\e[96mOption to capture the opposing pawn that just moved.\e[0m"
+    puts "\n\e[91mTo capture this pawn en passant\e[0m (in passing),"
     puts "please enter the \e[41mhighlighted coordinates\e[0m."
     puts "As part of en passant, your\e[96m pawn will be moved"
     puts "to the square in front of the captured pawn\e[0m."
