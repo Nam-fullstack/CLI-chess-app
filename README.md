@@ -1,1 +1,2 @@
-# terminal-chess
+# CLI Ruby Chess App
+
