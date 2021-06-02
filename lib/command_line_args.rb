@@ -11,12 +11,12 @@ if ARGV.length > 0
     exit
   when '--info', '-info', '-i'
     puts "This program is using Ruby version: #{RUBY_VERSION}"
-
+    exit
   when '--load', '-load', '-l'
     puts "This feature of the game allows you to load a previously saved game"
     puts "and resume where you left off. To \e[96m'Load'\e[0m a saved game, simply select"
-    puts "the \e[96mfile #\e[0m by typing in the corresponding \e[96mnumber\e[0m of the" 
-    puts "game you wish to load."
+    puts "the \e[96mfile #\e[0m by typing in the corresponding \e[96mnumber\e[0m of the game you" 
+    puts "wish to load."
     exit
   when '--path', '-path', '-p'
     
@@ -27,7 +27,9 @@ if ARGV.length > 0
     exit
   else
     puts "\e[91mInvalid argument.\e[0m"
-    puts "For "
+    puts "For help, please type '\e[91mruby main.rb -help\e[0m' or '\e[91mruby main.rb -h\e[0m'"
+    puts "For information, please type '\e[91mruby main.rb -info\e[0m' or '\e[91mruby main.rb -i\e[0m'"
+
     exit
   end
 end

@@ -26,7 +26,7 @@ module GamePrompts
       "How to Play" => 4,
       "Exit" => 5
     }
-    @mode = prompt.select("MAIN MENU", options, convert: :integer)
+    @mode = prompt.select('MAIN MENU', options, convert: :integer)
   end
 
   def return_to_menu
@@ -54,9 +54,7 @@ module GamePrompts
     prompt = TTY::Prompt.new
     again = prompt.select('Do you wish to play again?', 'Yes', 'No')
     if again == 'Yes'
-      select_game_mode
-      play_game(@mode)
-    #   start_game(@player_count)
+      main_menu
     elsif again == 'No'
       exit_program
     end
@@ -66,7 +64,7 @@ module GamePrompts
     prompt = TTY::Prompt.new
     puts
     final_choice = prompt.select('Are you sure you want to Exit?', 'Yes', 'No')
-    if final_choice == 'Yes' 
+    return unless final_choice == 'Yes'
       pausing(0.5)
       quit_app
     end
