@@ -45,7 +45,6 @@ module GamePrompts
     if resign == 'Yes'
       puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
       pausing(2.4)
-    #   @player_count = 0 # when player count is less than 1, ends game
       play_again
     else
       play
@@ -113,7 +112,7 @@ module GamePrompts
     else
       puts "\nSTALEMATE! Game is a draw.\n\n".colorize(:cyan)
     end
-    play
+    play_again
   end
 
   def user_piece_selection
