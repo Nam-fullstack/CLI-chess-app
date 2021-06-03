@@ -58,7 +58,7 @@ class Game
     @board = board
     @current_turn = current_turn
   end
-  
+
   def setup_board
     @board.update_mode if @player_count == 1
     @board.initial_placement
@@ -66,17 +66,14 @@ class Game
 
   def play
     @board.to_s
-    player_turn until @board.game_over? || @player_count.zero?
+        player_turn until @board.game_over? || @player_count.zero?
     game_end_message
   end
 
   def menu_options(input)
     case input.upcase
     when 'N'
-      if @player_count == 2
-        start_game(2)
-      else
-        start_game(1)
+      @player_count == 2 ? start_game(2) : start_game(1)
       end
     when 'S'
       save_game
