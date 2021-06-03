@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'main'
-
 # Contains methods to save and/or load a game
 module Serializer
   def save_game
@@ -11,15 +9,16 @@ module Serializer
       Marshal.dump(self, file)
     end
     puts "Game was saved as \e[96m#{filename}\e[0m\n"
-    @player_count = 0
-  rescue SystemError => e
+    sleep(2)
+    play # user can continue playing game
+  rescue SystemCallError => e
     puts "\e[91mError while writing to file #{filename}.\e[0m"
     puts e
   end
 
   def create_filename
     date = Time.now.strftime('%Y-%m-%d').to_s
-    time = Time.now.strftime('%H:%M:%S').to_s
+    time = Time.now.strftime('%H-%M-%S').to_s
     "Chess #{date} at #{time}"
   end
 
@@ -28,7 +27,9 @@ module Serializer
     File.open("saved_games/#{file_name}") do |file|
       Marshal.load(file)
     end
-  rescue 
+  rescue IOError => e
+    puts "\e[91mError while loading file #{file_name}.\e[0m"
+    puts e
   end
 
   def find_saved_file
@@ -41,6 +42,16 @@ module Serializer
       file_number = select_saved_game(saved_games.size)
       saved_games[file_number.to_i - 1]
     end
+  end
+
+  def create_game_list
+    game_list = []
+    return game_list unless Dir.exist? 'saved_games'
+
+    Dir.entries('saved_games').each do |name|
+      game_list << name if name.match(/(Chess)/)
+    end
+    game_list
   end
 
   def print_saved_games(game_list)
@@ -56,15 +67,5 @@ module Serializer
 
     puts "\e[91mInput Error!\e[0m Please enter a valid file number."
     select_saved_game(number)
-  end
-
-  def create_game_list
-    game_list = []
-    return game_list unless Dir.exist? 'saved_games'
-
-    Dir.entries('saved_games').each do |name|
-      game_list << name if name.match(/(Chess)/)
-    end
-    game_list
   end
 end

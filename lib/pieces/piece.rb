@@ -61,7 +61,8 @@ class Piece
 
   private
 
-  # adds moves until it reaches a piece or still within the board, based on each piece's move mechanics
+  # adds moves until it reaches a piece or still within the board,
+  # based on each piece's move mechanics
   def create_moves(data, rank_change, file_change)
     rank = @location[0] + rank_change
     file = @location[1] + file_change
@@ -76,7 +77,8 @@ class Piece
     result
   end
 
-  # adds capture if piece's move set reaches opponent's piece, dependent on the piece's move mechanics.
+  # adds capture if piece's move set reaches opponent's piece,
+  # dependent on the piece's move mechanics.
   def create_captures(data, rank_change, file_change)
     rank = @location[0] + rank_change
     file = @location[1] + file_change

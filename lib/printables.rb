@@ -38,7 +38,7 @@ module Printables
   # 101 = red background     (possible captures)
   # 102 = green background   (possible moves)
   #  43 = yellow background  (previous piece that moved)
-  #  44 = cyan background    (even)
+  #  46 = cyan background    (even)
   # 100 = gray background    (odd)
   def select_background(row_index, column_index)
     if @active_piece&.location == [row_index, column_index]
@@ -61,7 +61,7 @@ module Printables
     @active_piece&.captures&.any?([row, column]) && @data[row][column]
   end
 
-  # determines possible legal moves for selected piece and returns the location(s)
+  # determines possible legal moves for selected piece and returns the coordinates
   def active_moves?(row, column)
     @active_piece&.moves&.any?([row, column])
   end

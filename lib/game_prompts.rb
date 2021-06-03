@@ -32,8 +32,10 @@ module GamePrompts
   def return_to_menu
     prompt = TTY::Prompt.new
     choice = prompt.select('Do you want to go back to the Main Menu?', ['Yes', 'Quit'])
-    if choice == 'Quit'
-        exit_program
+    if choice == 'Yes'
+      main_menu
+    else
+      exit_program
     end
   end
 
@@ -64,10 +66,12 @@ module GamePrompts
     prompt = TTY::Prompt.new
     puts
     final_choice = prompt.select('Are you sure you want to Exit?', 'Yes', 'No')
-    return unless final_choice == 'Yes'
+    if final_choice == 'Yes'
       pausing(0.5)
       quit_app
-    end
+    else
+      main_menu
+    end  
   end
 
   def quit_app
