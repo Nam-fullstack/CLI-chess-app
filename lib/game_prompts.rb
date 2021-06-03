@@ -32,8 +32,10 @@ module GamePrompts
   def return_to_menu
     prompt = TTY::Prompt.new
     choice = prompt.select('Do you want to go back to the Main Menu?', ['Yes', 'Quit'])
-    if choice == 'Quit'
-        exit_program
+    if choice == 'Yes'
+      main_menu
+    else
+      exit_program
     end
   end
 
@@ -43,7 +45,6 @@ module GamePrompts
     if resign == 'Yes'
       puts "#{@current_turn.upcase} RESIGNS! #{previous_color.upcase} WINS!!! \n\n".colorize(:green)
       pausing(2.4)
-    #   @player_count = 0 # when player count is less than 1, ends game
       play_again
     else
       play
@@ -54,9 +55,7 @@ module GamePrompts
     prompt = TTY::Prompt.new
     again = prompt.select('Do you wish to play again?', 'Yes', 'No')
     if again == 'Yes'
-      select_game_mode
-      play_game(@mode)
-    #   start_game(@player_count)
+      main_menu
     elsif again == 'No'
       exit_program
     end
@@ -66,10 +65,12 @@ module GamePrompts
     prompt = TTY::Prompt.new
     puts
     final_choice = prompt.select('Are you sure you want to Exit?', 'Yes', 'No')
-    return unless final_choice == 'Yes'
+    if final_choice == 'Yes'
       pausing(0.5)
       quit_app
-    end
+    else
+      main_menu
+    end  
   end
 
   def quit_app
@@ -111,7 +112,7 @@ module GamePrompts
     else
       puts "\nSTALEMATE! Game is a draw.\n\n".colorize(:cyan)
     end
-    play
+    play_again
   end
 
   def user_piece_selection

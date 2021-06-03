@@ -47,14 +47,18 @@ def start_game(players)
   player.play
 end
 
+def main_menu
+  select_game_mode
+  play_game(@mode)
+end
+
 loading(2, 50)
 display_ansi
 
 loop do
   begin
-    select_game_mode
-    play_game(@mode)
-    rescue
+    main_menu
+  rescue => e
     puts e.message
   end
 end

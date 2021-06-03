@@ -29,11 +29,11 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  colorize
+  colorize (~> 0.8.1)
   rspec-core (= 3.9.2)
   rspec-expectations (= 3.9.2)
   tty-logger
-  tty-prompt
+  tty-prompt (~> 0.23.1)
 
 BUNDLED WITH
    2.2.17
