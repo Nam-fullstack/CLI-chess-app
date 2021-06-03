@@ -53,7 +53,7 @@ def main_menu
 end
 
 loading(2, 50)
-# display_ansi
+display_ansi
 
 loop do
   begin

@@ -29,7 +29,6 @@ if ARGV.length > 0
     puts "\e[91mInvalid argument.\e[0m"
     puts "For help, please type '\e[91mruby main.rb -help\e[0m' or '\e[91mruby main.rb -h\e[0m'"
     puts "For information, please type '\e[91mruby main.rb -info\e[0m' or '\e[91mruby main.rb -i\e[0m'"
-
     exit
   end
 end
