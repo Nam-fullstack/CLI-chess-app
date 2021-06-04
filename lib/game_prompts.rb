@@ -82,11 +82,11 @@ module GamePrompts
     puts 'STEP 2: '.colorize(:magenta) + "Enter coordinates of\e[92m valid move\e[0m:"
     puts "        square(s) highlighted \e[102m   \e[0m or capture \e[101m \u265F \e[0m\n\n"
     puts "For more information on how to play chess, please view \e[94mHow To Play Chess.pdf\e[0m file.\n\n"
-    puts "During a Game, you can do the following actions:\n"
-    puts "To \e[91mSave\e[0m current game, enter '\e[91mS\e[0m'."
-    puts "To \e[91mLoad\e[0m a game, enter '\e[91mL\e[0m'."
-    puts "To start a \e[94mNew Game\e[0m, enter '\e[91mN\e[0m'."
-    puts "To \e[91mQuit\e[0m a game, enter '\e[91mQ\e[0m'.\n\n"
+    puts "During a Game, you can perform the following actions:\n\n"
+    puts "\e[91mSave\e[0m current game:    enter '\e[91mS\e[0m'."
+    puts "To \e[91mLoad\e[0m a game:       enter '\e[91mL\e[0m'."
+    puts "Start a \e[94mNew Game\e[0m:     enter '\e[91mN\e[0m'."
+    puts "To \e[91mQuit\e[0m a game:       enter '\e[91mQ\e[0m'.\n\n"
     sleep(5)
     return_to_menu
   end

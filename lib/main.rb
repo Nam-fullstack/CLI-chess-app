@@ -57,6 +57,6 @@ loading(2, 50)
 
 loop do
     main_menu
-rescue NoMethodError, IOError, SyntaxError => e
+rescue StandardError, NoMemoryError, ScriptError, SecurityError, SystemStackError => e
     puts e.message
 end

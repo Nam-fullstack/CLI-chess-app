@@ -12,7 +12,7 @@ class Game
     def message
       <<~HEREDOC
         \e[91mInvalid input!\e[0m
-        Please enter a \e[94mletter\e[0m [a-h]and\e[94m number\e[0m [1-8].
+        Please enter a \e[94mletter\e[0m[a-h] and\e[94m number\e[0m[1-8].
         \e[94m eg: d2\e[0m
       HEREDOC
     end
