@@ -66,7 +66,7 @@ class Game
 
   def play
     @board.to_s
-        player_turn until @board.game_over? || @player_count.zero?
+    player_turn until @board.game_over? || @player_count.zero?
     game_end_message
   end
 
@@ -74,7 +74,6 @@ class Game
     case input.upcase
     when 'N'
       @player_count == 2 ? start_game(2) : start_game(1)
-      end
     when 'S'
       save_game
     when 'L'

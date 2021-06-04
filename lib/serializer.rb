@@ -10,7 +10,7 @@ module Serializer
     end
     puts "Game was saved as \e[96m#{filename}\e[0m\n"
     sleep(2)
-    play # user can continue playing game
+    play # user can continue playing game after saving
   rescue SystemCallError => e
     puts "\e[91mError while writing to file #{filename}.\e[0m"
     puts e

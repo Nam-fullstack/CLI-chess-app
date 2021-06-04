@@ -56,9 +56,7 @@ loading(2, 50)
 # display_ansi
 
 loop do
-  begin
     main_menu
-  rescue NoMethodError,IOError, SyntaxError => e
+rescue NoMethodError, IOError, SyntaxError => e
     puts e.message
-  end
 end

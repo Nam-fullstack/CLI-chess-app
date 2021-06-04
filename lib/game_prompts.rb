@@ -20,11 +20,11 @@ module GamePrompts
     puts "\n\n"
     prompt = TTY::Prompt.new
     options = {
-      "Single Player" => 1,
-      "Two Player" => 2,
-      "Load Game" => 3,
-      "How to Play" => 4,
-      "Exit" => 5
+      'Single Player' => 1,
+      'Two Player' => 2,
+      'Load Game' => 3,
+      'How to Play' => 4,
+      'Exit' => 5
     }
     @mode = prompt.select('MAIN MENU', options)
   end

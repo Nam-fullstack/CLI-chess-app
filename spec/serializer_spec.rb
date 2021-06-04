@@ -7,7 +7,7 @@ RSpec.describe Serializer do
   
   describe '#select_saved_game' do
     context 'when user input is valid' do
-      it 'returns valid uesr input' do
+      it 'returns valid user input' do
         input = '1'
         allow(dummy_class).to receive(:gets).and_return(input)
         result = dummy_class.select_saved_game(3)
@@ -54,7 +54,7 @@ RSpec.describe Serializer do
       end
 
       it 'opens a file' do
-        expect(File).to  receive(:open)
+        expect(File).to receive(:open)
         dummy_class.load_game
       end
 
