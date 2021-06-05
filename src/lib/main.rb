@@ -53,7 +53,8 @@ def main_menu
 end
 
 loading(2, 50)
-# display_ansi
+# displays 350character wide banner art.
+# display_ansi  
 
 loop do
     main_menu
