@@ -1,0 +1,27 @@
+AllCops:
+  Exclude:
+    - 'Gemfile'
+  NewCops: enable
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+Layout/LineLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'lib/game_prompts.rb'
+    - 'lib/move_validator.rb'
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/movement/pawn_promotion_movement.rb'
+    - 'lib/printables.rb'
+    - 'lib/main.rb'
+Security/MarshalLoad:
+  Exclude:
+    - 'lib/serializer.rb'
+
+# configurations for rubocop gem to exclude specified files and parameters
+# when performing autocorrect function to correct formatting/styling
+# since majority of styling was already according to convention, majority
+# of corrects were from trailing whitespace, indentation of 4 spaces rather
+# than 2, and having new line at end of file and after guard clauses
+# (i.e. break and next)

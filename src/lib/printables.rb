@@ -1,0 +1,86 @@
+# frozen_string_literal: true
+
+require 'colorize'
+
+# creates the visual representation of the chess board from the board's data array
+module Printables 
+  private
+
+  # prints out chess board with file (letter) and rank (number) coordinates
+  def print_chess_board
+    system 'clear'
+    puts("|   \e[4;91mN\e[0mew Game   |     \e[4;91mS\e[0mave     |      \e[4;91mL\e[0moad      |      \e[4;91mQ\e[0muit      | \n\n")
+    puts "\n    a  b  c  d  e  f  g  h".colorize(:cyan)
+    print_board
+    puts "    a  b  c  d  e  f  g  h \n".colorize(:cyan)
+  end
+
+  # iterates through each row of the board and adds rank. In chess, the rows
+  # go from 1-8, starting from the bottom.
+  def print_board
+    @data.each_with_index do |row, index|
+      print " #{8 - index} ".colorize(:cyan)
+      print_row(row, index)
+      print " #{8 - index} \n".colorize(:cyan)
+    end
+  end
+
+  # creates each row to be printed with an alternating color
+  def print_row(row, row_index)
+    row.each_with_index do |box, index|
+      background_color = select_background(row_index, index)
+      print_box(row_index, index, box, background_color)
+    end
+  end
+
+  # returns background color based on specific conditions:
+  # 105 = magenta background (active piece to move)
+  # 101 = red background     (possible captures)
+  # 102 = green background   (possible moves)
+  #  43 = yellow background  (previous piece that moved)
+  #  46 = cyan background    (even)
+  # 100 = gray background    (odd)
+  def select_background(row_index, column_index)
+    if @active_piece&.location == [row_index, column_index]
+      105
+    elsif capture_background?(row_index, column_index)
+      101
+    elsif @previous_piece&.location == [row_index, column_index]
+      43
+    elsif active_moves?(row_index, column_index)
+      102
+    elsif (row_index + column_index).even?
+      46
+    else
+      100
+    end
+  end
+
+  # determines if the selected piece has any possible captures, returns the coordinates
+  def capture_background?(row, column)
+    @active_piece&.captures&.any?([row, column]) && @data[row][column]
+  end
+
+  # determines possible legal moves for selected piece and returns the coordinates
+  def active_moves?(row, column)
+    @active_piece&.moves&.any?([row, column])
+  end
+
+  # sets the font colours for each square based on specific conditions
+  # 107 = white (chess pieces)
+  #  30 = black (chess pieces)
+  def print_box(_row_index, _column_index, box, background)
+    if box
+      text_color = box.color == :white ? 107 : 30
+      color_box(text_color, background, box.symbol)
+    else
+      color_box(30, background, '   ')
+    end
+  end
+
+  # prints the final box/square with the specified text color, background/highlight color,
+  # and string (in this case, ascii chess symbol)
+  def color_box(text_color, background, string)
+    print "\e[#{text_color};#{background}m#{string}\e[0m"
+  end
+end
