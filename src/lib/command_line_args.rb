@@ -7,9 +7,9 @@ if ARGV.length > 0
   when '--help', '-help', '-h'
     puts "To run this program, please \e[91mcd..\e[0m \e[93mto the /src\e[0m directory and run the following command:"
     puts "\e[96m./run_chess.sh\e[0m\n"
-    puts 'See further documentation in readme.md'
+    puts 'For further information, please see documentation in README.md'
   when '--info', '-info', '-i'
-    puts "This program is using Ruby version: #{RUBY_VERSION}"
+    puts "This machine is running Ruby version: #{RUBY_VERSION}"
   when '--load', '-load', '-l'
     puts "This feature of the game allows you to load a previously saved game"
     puts "and resume where you left off. To \e[96m'Load'\e[0m a saved game, simply select"

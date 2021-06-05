@@ -45,7 +45,7 @@ class Game
       <<~HEREDOC
         There are\e[91m no legal moves\e[0m for this piece and/or
         \e[91mKing is under check\e[0m.
-        Please \e[94mselect another piece to move.
+        Please \e[94mselect another piece to move\e[0m.
       HEREDOC
     end
   end
