@@ -1,1 +1,12 @@
 # CLI Ruby Chess App
+
+![app-demo](./docs/App_Demo.mov)
+
+<div class="video" >
+
+<source src="./docs/App_Demo.mov">
+
+</div>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MtaP93zTNrg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
