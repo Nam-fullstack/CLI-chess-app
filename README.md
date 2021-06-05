@@ -75,9 +75,11 @@ You can also **save** the progress of a game at any time and resume that game la
 ![Saving Game](docs/Save1.png)
 Enter '**s**' to save
 <br>
+
 ![Main Menu](docs/Load1.png)
 To Load a game, select **Load Game** from MAIN MENU
 <br>
+
 ![Loading Game](docs/Load2.png)
 Enter corresponding number for game, i.e. '**1**'
 <br>
@@ -115,6 +117,7 @@ At any time during the game, the user my opt to Start a **New Game**, **Save** t
 ### Feature 1
 One of the main features I wanted to implement was having different square highlighted in various colours based on their possible moves, possible captures, previous piece that moved, active piece selected. This just really helps make gameplay for the user substantially easier with these visual cues.
 ![Square Color Feature](docs/feature1.png)
+
 As you can see in the diagram above, the selected active piece is the Queen, highlighted in magenta. The possible moves are highlighted in green, and the possible captures are highlighted in red. The previous piece that moved (white King) highlighted in yellow.
 
 The logic behind the color selection for the squares is outline in the code snippet below:
@@ -156,26 +159,33 @@ More importantly, when it came to playing the Chess game, the board and text was
 `display_ansi`
 
 ![Miniscule Chess Board](docs/banner2.png)
-### Error Handling
+
+## Error Handling
 If the user enters an invalid coordinate, anything that's not between [a-h] and [1-8], then it will **raise an InputError**, prompting the user to enter a letter [a-h] and number [1-8].
 ![Input Error message example 1](docs/input-error1.png)
 ![Input Error message example 2](docs/input-error2.png)
 <br>
+
 If the user selects a blank square or opponent's piece, it will **raise a CoordinatesError**, prompting the user to enter the file and rank of a piece that is their color.
 ![Coordinates Error message](docs/coordinates-error.png)
 <br>
+
 If the user selects a non-valid move for the selected piece, it will **raise a MoveError**, prompting them to enter a valid move.
 ![Move Error message](docs/move-error.png)
 <br>
+
 If the selected piece has no legal moves, it will **raise a PieceError** and will prompt user that the selected piece has no legal moves and to select another piece.
 ![Piece Error message](docs/piece-error.png)
 <br>
+
 When loading a saved game, if the user selects a file number value that is not listed, it will prompt the user of an input error, and tell them to enter in a valid file number.
 ![Load Error message](docs/load-error.png)
 <br>
+
 If there are no saved games, it will inform the user that there a no saved games to play.
 ![No Saved Games message](docs/no-saved-games.png)
 <br>
+
 If there is an issue with opening/loading a saved file (**IOError**), it will print to the screen:
 ```ruby
 puts "Error while loading #{filename}"
@@ -186,18 +196,22 @@ If there is an issue with saving a game (**SystemCallError**), it will print to 
 puts "Error while writing to file #{filename}."
 ```
 <br>
+
 If for whatever reason there is any other error(s) that arise, there is a 'global/master rescue clause' to catch those errors.
 
 ![Global Error Handling](docs/global-rescue.png)
 <br>
+
 Outlined below are all the Error Classes that have been defined, they're all sub-classes of StandardError such that a single rescue clause can be used to catch them all.
 
 ![Error Classes](docs/error-classes.png)
 <br>
+
 For all the defined Error Classes, these are rescued when they arise during each turn for the 2 steps for user input:
 
 ![Error Handling](docs/error-handling.png)
 <br>
+
 Below is the logic and code for the error validation as to which error to raise.
 
 ![Error Validation](docs/error-validation.png)
@@ -225,32 +239,32 @@ Below are RSpec tests that I ran to test the core functionality of the applicati
 
 ## Use of Ruby Gems
 ![TTY-progressbar](docs/Progressbar.png)
-TTY Progressbar
+TTY Progressbar, customized loader bar, adds percentage, width of bar, and customized long speed, number of advance steps.
 <br>
 
-![colorize1](docs/colorize1.png)
-Colorize mixed usage with string concatenation
+![colorize1](docs/Colorize1.png)
+Colorize mixed usage with string concatenation and interpolation
 
-![colorize2](docs/colorize2.png)
+![colorize2](docs/Colorize2.png)
 Colorize
 
-![TTY-prompt1](docs/prompt1.png)
-TTY-prompt using hash, value
+![TTY-prompt1](docs/Prompt1.png)
+TTY-prompt using hash, value outputting the integer value for usage in the case statements in main menu.
 
-![TTY-prompt2 and colorize](docs/prompt2.png)
+![TTY-prompt2 and colorize](docs/Prompt2.png)
 TTY-prompt select, using ternary operator to call methods
 
-![TTY-prompt3](docs/prompt3.png)
+![TTY-prompt3](docs/Prompt3.png)
 TTY-prompt during game if user enters Q to quit, prompts if they're sure they want to quit, and calls another prompt if to ask if they want to play again or continue playing the game if they choose no.
 
-![TTY-prompt4](docs/prompt4.png)
+![TTY-prompt4](docs/Prompt4.png)
 TTY-prompt for play_again method, asks if user wants to play again, and ternary operator to return to main menu or another prompt if they want to exit the program.
 
-![TTY-prompt5](docs/prompt5.png)
+![TTY-prompt5](docs/Prompt5.png)
 TTY-prompt, asks the user one last time to confirm if they're sure if they want to exit the program. Using ternary operator to call quit_app and main_menu methods.
 
 ![Rubocop Linter Configuration](docs/rubocop-yml-config.png)
-Used this AMAZING GEM, it literally is a gem, as a linter to get rid of any unnecessary trailing white space of incorrect indentation spacing (default 4 spaces instead of the conventional 2 spaces). Among a whole bunch of other formatting convention correctionss that it makes. However, I was already incorporating AirBnB best practises for essentially 95% of my code, just didn't know that it was convention to have a new line at the end of the code and also a new line after a guard clause (i.e. break or next). Above is the custom YAML configuration code so that it would exclude specified parameters when it performs autocorrect funtionality to format all the code.
+Used this AMAZING GEM, it literally is a gem, as a linter to get rid of any unnecessary trailing white space of incorrect indentation spacing (default 4 spaces instead of the conventional 2 spaces). Among a whole bunch of other formatting convention correctionss that it makes. Besides from the indentation and whitespace, I was already incorporating AirBnB best practises for essentially 95% of my code, just didn't know that it was convention to have a new line at the end of the code and also a new line after a guard clause (i.e. break or next). Above is the custom YAML configuration file so that it would exclude specified parameters when it performs autocorrect funtionality to format all the code.
 
 Majority of these corrections were from indentation (+450), and substantial amount was from line length being too long, and quite a few method blocks and Classes having too many lines.
 ![Rubocop Corrections Analysis](docs/rubocop2.png)
